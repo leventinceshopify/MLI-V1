@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item: one
+  location: one
+  inventory_item_state: one
+  quantity: 1
+  is_sellable: false
+  quantity_warning_threshold: 1
+
+two:
+  item: two
+  location: two
+  inventory_item_state: two
+  quantity: 1
+  is_sellable: false
+  quantity_warning_threshold: 1

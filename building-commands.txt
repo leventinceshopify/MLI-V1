@@ -1,0 +1,40 @@
+GraphQL rules
+in type definitions, in addition to regular fields, define additional fields such that:
+1. one-to-many relations: (product - variant)
+  side one: include [side many Type] (array) (ornek in ProductType add (field :variants, [VariantType], null: false))
+  side many : include side one Type  (ornek in VariantType add (field :product, ProductType, null: false))
+
+
+2. many to many relations (item - variant)
+(ornek in VariantType add (field :items, [ItemType], null: false))
+(ornek in ItemType add (field :variants, [VariantType], null: false))
+
+update Gemfile (look at the tutorial   https://www.howtographql.com/graphql-ruby/1-getting-started/)
+rails generate graphql:install
+
+
+
+rails generate model Item SKU:integer name:string description:text cost:float price:float size:string manufacturer:string type:string picture:string
+rails generate model Product name description:text picture:string
+rails generate model Variant description:text cost:float price:float size:string picture:string product:references
+rails:db:migrate
+to product.rb file add "has_many :variants , dependent: :destroy"
+!!!add validations to model files
+In item and variant model files put
+  has_and_belongs_to_many :variants
+  has_and_belongs_to_many :items
+
+rails generate migration create_items_and_variants
+Go and modify the mogration file (look at the content of the file 20191119004523_create_items_and_variants.rb)
+20191119004523_create_items_and_variants.rb
+rails:db:migrate
+
+Graphql querileri icin https://www.howtographql.com/graphql-ruby/0-introduction/ bak
+
+rails generate model Location name:string address:string location_type:references properties:json
+rails generate model LocationType name:string
+add has_many to locationType
+
+
+rails generate model InventoryItemState name:string description:text
+rails generate model InventoryItem item:references location:references inventory_item_state:references quantity:integer is_sellable:boolean quantity_warning_threshold:integer

@@ -1,0 +1,11 @@
+mutation {
+  createItem(
+  sku: 3
+  name: "Terminator-2"
+  ) {
+  id
+  sku
+  name
+  }
+
+}

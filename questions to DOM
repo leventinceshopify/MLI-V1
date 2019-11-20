@@ -1,0 +1,10 @@
+1. Primary is default (id) and assigned by activerecord.  Should we cahnge it ?
+
+class CreateContentUnits < ActiveRecord::Migration
+  def change
+    create_table :content_units, id: false do |t|
+      t.integer :guoid, limit: 8, auto_increment: true, primary_key: true
+      t.boolean :active, default: false
+    end
+  end
+end
