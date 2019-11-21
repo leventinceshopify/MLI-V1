@@ -8,7 +8,7 @@ module Mutations
     # return type from the mutation
     type Types::InventoryItemStateType
 
-    def resolve(name: nil, description: nil)
+    def resolve(name: nil, condition: nil, description: nil)
       InventoryItemState.create!(
         name: name,
         description: description

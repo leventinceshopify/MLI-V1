@@ -1,0 +1,15 @@
+module Mutations
+  class CreateInventoryItemCondition < BaseMutation
+    # arguments passed to the `resolved` method
+    argument :name, String, required: true
+
+    # return type from the mutation
+    type Types::InventoryItemConditionType
+
+    def resolve(name: nil)
+      InventoryItemCondition.create!(
+        name: name,
+      )
+    end
+  end
+end

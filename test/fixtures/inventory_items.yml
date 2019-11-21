@@ -4,14 +4,14 @@ one:
   item: one
   location: one
   inventory_item_state: one
+  inventory_item_condition: one
   quantity: 1
-  is_sellable: false
   quantity_warning_threshold: 1
 
 two:
   item: two
   location: two
   inventory_item_state: two
+  inventory_item_condition: two
   quantity: 1
-  is_sellable: false
   quantity_warning_threshold: 1

@@ -10,24 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_174234) do
+ActiveRecord::Schema.define(version: 2019_11_21_145139) do
+
+  create_table "inventory_item_conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "inventory_item_states", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "condition"
   end
 
   create_table "inventory_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.bigint "location_id", null: false
     t.bigint "inventory_item_state_id", null: false
+    t.bigint "inventory_item_condition_id", null: false
     t.integer "quantity"
-    t.boolean "is_sellable"
     t.integer "quantity_warning_threshold"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["inventory_item_condition_id"], name: "index_inventory_items_on_inventory_item_condition_id"
     t.index ["inventory_item_state_id"], name: "index_inventory_items_on_inventory_item_state_id"
     t.index ["item_id"], name: "index_inventory_items_on_item_id"
     t.index ["location_id"], name: "index_inventory_items_on_location_id"
@@ -54,8 +62,6 @@ ActiveRecord::Schema.define(version: 2019_11_20_174234) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
-
-
 
   create_table "location_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -93,13 +99,12 @@ ActiveRecord::Schema.define(version: 2019_11_20_174234) do
     t.index ["product_id"], name: "index_variants_on_product_id"
   end
 
+  add_foreign_key "inventory_items", "inventory_item_conditions"
   add_foreign_key "inventory_items", "inventory_item_states"
   add_foreign_key "inventory_items", "items"
   add_foreign_key "inventory_items", "locations"
   add_foreign_key "item_variants", "items"
   add_foreign_key "item_variants", "variants"
-  add_foreign_key "items_variants", "items"
-  add_foreign_key "items_variants", "variants"
   add_foreign_key "locations", "location_types"
   add_foreign_key "variants", "products"
 end

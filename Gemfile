@@ -60,3 +60,5 @@ gem 'shopify-cloud', source: 'https://packages.shopify.io/shopify/gems'
 gem 'graphql', '1.9.15'
 
 gem 'graphiql-rails', '1.5.0', group: :development
+
+gem 'react-rails'

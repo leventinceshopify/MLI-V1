@@ -37,4 +37,10 @@ add has_many to locationType
 
 
 rails generate model InventoryItemState name:string description:text
-rails generate model InventoryItem item:references location:references inventory_item_state:references quantity:integer is_sellable:boolean quantity_warning_threshold:integer
+rails generate model InventoryItem item:references location:references inventory_item_state:references inventory_item_condition:references quantity:integer  quantity_warning_threshold:integer
+
+
+rails generate model ItemVariant variant:references item:references
+rails generate model InventoryItemCondition name:string
+
+rails generate migration add_reference_to_inventory_items

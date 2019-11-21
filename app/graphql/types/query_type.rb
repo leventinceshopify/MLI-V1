@@ -9,6 +9,29 @@ module Types
         Item.all
       end
 
+      # field :item, ItemType, null: false do
+      #       description "Returns the particular item in the inventory"
+      #         argument :id, ID, required:true
+      #         # argument :name, String, required:false
+      #       end
+      #   def item(id:)
+      #     # Item.find(id)
+      #      Item.where(:id => id)
+      #   end
+
+# where(category: category).limit(10)
+
+        # field :post, PostType, null: false do
+        #   argument :post_id, ID, required: true, as: :id
+        # end
+        #
+        # def post(id:)
+        #   Post.find(id)
+        # end
+
+
+
+
       field :all_products, [ProductType], null: false,
             description: "Returns the list of products sold by the merchant"
       def all_products
@@ -25,6 +48,12 @@ module Types
             description: "Returns the list of item variants bindingsh"
       def all_item_variants
         ItemVariant.all
+      end
+
+      field :show_inventory, [InventoryItemType], null: false,
+            description: "Returns the list of all items in inventory"
+      def show_inventory
+        InventoryItem.all
       end
 
       # field :all_locations, [LocationType], null: false,

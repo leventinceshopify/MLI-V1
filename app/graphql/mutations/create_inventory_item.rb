@@ -3,9 +3,9 @@ module Mutations
     # arguments passed to the `resolved` method
     argument :location_id, ID, required: true
     argument :item_id, ID, required: true
-    argument :inventory_item_state_id, ID, required: false
+    argument :inventory_item_state_id, ID, required: true
+    argument :inventory_item_condition_id, ID, required: true
     argument :quantity, Integer, required: false
-    argument :is_sellable, Boolean, required: true
     argument :quantity_warning_threshold, Integer, required: false
 
 
@@ -13,14 +13,14 @@ module Mutations
     type Types::InventoryItemType
 
     def resolve(location_id: nil, item_id: nil, inventory_item_state_id: nil,
-      quantity: nil, is_sellable: true, quantity_warning_threshold: nil)
+      inventory_item_condition_id: nil, quantity: nil, quantity_warning_threshold: nil)
 
       InventoryItem.create!(
         location: Location.find(location_id),
         item: Item.find(item_id),
         inventory_item_state: InventoryItemState.find(inventory_item_state_id),
+        inventory_item_condition: InventoryItemCondition.find(inventory_item_condition_id),
         quantity: quantity,
-        is_sellable: is_sellable,
         quantity_warning_threshold: quantity_warning_threshold
       )
     end
