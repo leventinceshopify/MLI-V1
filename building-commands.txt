@@ -44,3 +44,21 @@ rails generate model ItemVariant variant:references item:references
 rails generate model InventoryItemCondition name:string
 
 rails generate migration add_reference_to_inventory_items
+
+//Simdilik kaldirdim geri (by rails destroy react:install)
+FOR react
+
+gem 'react-rails', next run
+bundle install
+then
+rails g react:install
+//////////////
+
+
+//install apollo
+
+https://evilmartians.com/chronicles/graphql-on-rails-1-from-zero-to-the-first-query
+
+yarn add apollo-client apollo-cache-inmemory apollo-link-http apollo-link-error apollo-link graphql graphql-tag react-apollo
+
+rails webpacker:install:react

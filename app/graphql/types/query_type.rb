@@ -9,15 +9,15 @@ module Types
         Item.all
       end
 
-      # field :item, ItemType, null: false do
-      #       description "Returns the particular item in the inventory"
-      #         argument :id, ID, required:true
-      #         # argument :name, String, required:false
-      #       end
-      #   def item(id:)
-      #     # Item.find(id)
-      #      Item.where(:id => id)
-      #   end
+      field :item, ItemType, null: false do
+            description "Returns the particular item in the inventory"
+              argument :id, ID, required:true
+              # argument :name, String, required:false
+            end
+        def item(id:)
+           Item.find(id)
+           # Item.where(:id => id)
+        end
 
 # where(category: category).limit(10)
 
@@ -62,7 +62,11 @@ module Types
       #   Location.all
       # end
 
+      field :me, Types::AdminType, null: true
 
+     def me
+      context[:current_admin]
+     end
 
   end
 end

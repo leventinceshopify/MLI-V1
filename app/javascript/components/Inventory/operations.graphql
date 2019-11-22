@@ -1,0 +1,14 @@
+query ProductsQuery {
+  allProducts {
+    id
+    name
+    variants {
+      id
+      name
+      items {
+        id
+        name
+      }
+    }
+  }
+}

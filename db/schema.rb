@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_145139) do
+ActiveRecord::Schema.define(version: 2019_11_22_072111) do
+
+  create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "inventory_item_conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -99,10 +106,10 @@ ActiveRecord::Schema.define(version: 2019_11_21_145139) do
     t.index ["product_id"], name: "index_variants_on_product_id"
   end
 
-  add_foreign_key "inventory_items", "inventory_item_conditions"
-  add_foreign_key "inventory_items", "inventory_item_states"
-  add_foreign_key "inventory_items", "items"
-  add_foreign_key "inventory_items", "locations"
+  add_foreign_key "inventory_items", "inventory_item_conditions", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "inventory_items", "inventory_item_states", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "inventory_items", "items", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "inventory_items", "locations", on_update: :cascade, on_delete: :cascade
   add_foreign_key "item_variants", "items"
   add_foreign_key "item_variants", "variants"
   add_foreign_key "locations", "location_types"
