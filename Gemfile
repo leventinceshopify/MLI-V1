@@ -62,3 +62,7 @@ gem 'graphql', '1.9.15'
 gem 'graphiql-rails', '1.5.0', group: :development
 
 gem 'react-rails'
+
+
+
+gem 'seed_dump', '~> 3.3', '>= 3.3.1'

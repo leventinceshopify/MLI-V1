@@ -3,7 +3,8 @@ class GraphqlController < ApplicationController
     variables = ensure_hash(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    context = { current_admin: current_admin }
+   context = {  }
+   # context = { current_admin: current_admin }
     result = MultilocationInventoryV1Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e

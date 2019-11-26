@@ -62,3 +62,10 @@ https://evilmartians.com/chronicles/graphql-on-rails-1-from-zero-to-the-first-qu
 yarn add apollo-client apollo-cache-inmemory apollo-link-http apollo-link-error apollo-link graphql graphql-tag react-apollo
 
 rails webpacker:install:react
+
+Admin authontication icin
+
+rails generate model Admin name email
+
+
+I add shopiy/polaris to package.json.  Look at there

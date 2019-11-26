@@ -216,6 +216,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    seed_dump (3.3.1)
+      activerecord (>= 4)
+      activesupport (>= 4)
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -293,6 +296,7 @@ DEPENDENCIES
   rails (~> 6.0.1)
   react-rails
   sass-rails (>= 6)
+  seed_dump (~> 3.3, >= 3.3.1)
   selenium-webdriver
   shopify-cloud!
   spring

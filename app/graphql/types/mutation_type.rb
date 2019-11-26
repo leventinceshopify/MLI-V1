@@ -11,5 +11,12 @@ module Types
     field :create_location, mutation: Mutations::CreateLocation
     field :create_location_type, mutation: Mutations::CreateLocationType
     field :sign_in, mutation: Mutations::SignInMutation
+    field :sell_variant_from_location, mutation: Mutations::SellVariantFromLocation
+    field :ship_variant, mutation: Mutations::ShipVariant
+    field :return_variant_to_location, mutation: Mutations::ReturnVariantToLocation
+    field :order_item_to_location, mutation: Mutations::OrderItemToLocation
+    field :ship_item_to_location_from_supplier, mutation: Mutations::ShipItemToLocationFromSupplier
+    field :receive_order_at_location, mutation: Mutations::ReceiveOrderAtLocation
+
   end
 end

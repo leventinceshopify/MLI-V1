@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { Query, Mutation } from "react-apollo";
 import { Me, SignMeIn } from "./operations.graphql";
 import cs from "./styles";
+import '@shopify/polaris/styles.css';
+
 
 const AdminInfo = () => {
   const input = useRef(null);
@@ -58,8 +60,8 @@ const AdminInfo = () => {
             );
           }
 
-          const { username } = data.me;
-          return <div className={cs.info}>😈 {username}</div>;
+          const { username } = data.me;  //destructuring of object sample
+          return <div className={cs.info}>MLI {username}</div>;
         }}
       </Query>
     </div>

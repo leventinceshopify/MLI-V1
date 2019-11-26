@@ -9,3 +9,11 @@ mutation {
   }
 
 }
+
+
+mutation {
+   createLocationType(name: "Warehouse") {
+    id
+    name
+  }
+}

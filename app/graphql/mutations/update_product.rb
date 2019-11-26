@@ -12,17 +12,17 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(id:, name: nil,  description: nil, picture: nil)
-      if context[:current_admin].nil?
-        raise GraphQL::ExecutionError,
-              "You need to authenticate to perform this action"
-      end
+      # if context[:current_admin].nil?
+      #   raise GraphQL::ExecutionError,
+      #         "You need to authenticate to perform this action"
+      # end
 
       product = Product.find(id)
 
       if product.update(name: name, description: description, picture: picture)
         { product: product }
       else
-        { errors: item.errors.full_messages }
+        { errors: product.errors.full_messages }
       end
 
     end

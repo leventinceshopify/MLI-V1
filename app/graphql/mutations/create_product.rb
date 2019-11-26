@@ -11,10 +11,10 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(name: nil,  description: nil, picture: nil)
-      if context[:current_admin].nil?
-        raise GraphQL::ExecutionError,
-              "You need to authenticate to perform this action"
-      end
+      # if context[:current_admin].nil?
+      #   raise GraphQL::ExecutionError,
+      #         "You need to authenticate to perform this action"
+      # end
 
      product = Product.new(
        name: name,
@@ -27,6 +27,7 @@ module Mutations
       else
         { errors: product.errors.full_messages }
       end
+
 
     end
   end
