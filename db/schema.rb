@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_072111) do
+ActiveRecord::Schema.define(version: 2019_11_26_160139) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "username"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2019_11_22_072111) do
     t.bigint "inventory_item_state_id", null: false
     t.bigint "inventory_item_condition_id", null: false
     t.integer "quantity"
-    t.integer "quantity_warning_threshold"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["inventory_item_condition_id"], name: "index_inventory_items_on_inventory_item_condition_id"
@@ -68,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_072111) do
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity_threshold"
   end
 
   create_table "location_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -112,6 +112,6 @@ ActiveRecord::Schema.define(version: 2019_11_22_072111) do
   add_foreign_key "inventory_items", "locations", on_update: :cascade, on_delete: :cascade
   add_foreign_key "item_variants", "items"
   add_foreign_key "item_variants", "variants"
-  add_foreign_key "locations", "location_types"
+  add_foreign_key "locations", "location_types", on_update: :cascade, on_delete: :cascade
   add_foreign_key "variants", "products"
 end
