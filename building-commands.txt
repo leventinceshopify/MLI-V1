@@ -69,3 +69,9 @@ rails generate model Admin name email
 
 
 I add shopiy/polaris to package.json.  Look at there
+
+https://github.com/Shopify/polaris-react#using-the-react-components
+
+to generate React components
+
+$ npx @hellsquirrel/create-gql-component create app/javascript/components/UserInfo

@@ -22,7 +22,8 @@ module Mutations
       #The operations must be atomic
       variant.items.each do |item|
 
-        inventory_item = InventoryItem.find_by(location_id: location_id, item_id: item.id,
+        inventory_item = InventoryItem.find_by(
+          location_id: location_id, item_id: item.id,
           inventory_item_state_id: [InventoryItemState.find_by(name: "Available").id,InventoryItemState.find_by(name: "Critical Level").id],
           inventory_item_condition_id: inventory_item_condition_id)
 

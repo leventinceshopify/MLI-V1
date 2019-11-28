@@ -19,18 +19,6 @@ module Types
            # Item.where(:id => id)
         end
 
-# where(category: category).limit(10)
-
-        # field :post, PostType, null: false do
-        #   argument :post_id, ID, required: true, as: :id
-        # end
-        #
-        # def post(id:)
-        #   Post.find(id)
-        # end
-
-
-
 
       field :all_products, [ProductType], null: false,
             description: "Returns the list of products sold by the merchant"
@@ -54,6 +42,14 @@ module Types
             description: "Returns the list of all items in inventory"
       def show_inventory
         InventoryItem.all
+      end
+
+      field :show_inventory_per_location, [InventoryItemType], null: false do
+            description "Returns the list of all items in inventory"
+            argument :id, ID, required:true
+          end
+      def show_inventory_per_location(id:)
+        InventoryItem.all.where(:location_id => id)
       end
 
       # field :all_locations, [LocationType], null: false,

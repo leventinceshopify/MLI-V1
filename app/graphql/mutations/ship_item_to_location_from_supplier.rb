@@ -56,7 +56,6 @@ module Mutations
             item_id: item.id, inventory_item_state_id: inventory_item_state_id,
             inventory_item_condition_id: inventory_item_condition_id)
 
-
             if inventory_item.nil?
               new_quantity =  dropped_quantity
               begin

@@ -17,6 +17,8 @@ module Types
     field :order_item_to_location, mutation: Mutations::OrderItemToLocation
     field :ship_item_to_location_from_supplier, mutation: Mutations::ShipItemToLocationFromSupplier
     field :receive_order_at_location, mutation: Mutations::ReceiveOrderAtLocation
-
+    field :mark_item_lost_at_location_from_state, mutation: Mutations::MarkItemLostAtLocationFromState
+    field :transfer_item_from_location_to_location, mutation: Mutations::TransferItemFromLocationToLocation
+    field :remove_order_of_item, mutation: Mutations::RemoveOrderOfItem
   end
 end

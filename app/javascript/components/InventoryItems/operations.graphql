@@ -1,0 +1,65 @@
+query ShowInventoryQuery {
+  showInventory {
+    id
+    location{
+      id
+      name
+    }
+    item {
+      id
+      name
+    }
+    inventoryItemState {
+      name
+    }
+
+    inventoryItemCondition{
+      name
+    }
+    quantity
+  }
+}
+
+query ShowInventoryPerLocationQuery1{
+  showInventoryPerLocation(id: 1) {
+    id
+    location{
+      id
+      name
+    }
+    item {
+      id
+      name
+    }
+    inventoryItemState {
+      name
+    }
+
+    inventoryItemCondition{
+      name
+    }
+    quantity
+  }
+}
+
+query ShowInventoryPerLocationQuery2{
+  showInventoryPerLocation(id: 2) {
+    id
+    location{
+      id
+      name
+    }
+    item {
+      id
+      name
+    }
+    inventoryItemState {
+      name
+    }
+
+    inventoryItemCondition{
+      name
+    }
+    quantity
+  }
+}

@@ -1,4 +1,4 @@
-// app/javascript/components/Library
+
 import React, {useState, setState, Component} from "react";
 import {Query} from "react-apollo";
 import {ProductsQuery} from "./operations.graphql";
@@ -33,9 +33,7 @@ const Inventory = () => {
 
           loading || !data.allProducts
             ? "loading..."
-            // : data.allProducts.map(({ name, id, description }) => (
 
-            //allproducts is an array
             : data.allProducts.map(product => {
               return (<ul key={product.id}>
                 <span>{product.id}  </span>
@@ -45,17 +43,6 @@ const Inventory = () => {
 
 
               </ul>)
-              // <button
-              //   key={id}
-              //   className={cs.plate}
-              //   onClick={() => setProduct({ name, id, description })}
-              // >
-              //   <div className={cs.title}>{name}</div>
-              //   <div>{description}</div>
-              //
-              //
-              // </button>
-              // ))}
             })}
   </div>)
 }

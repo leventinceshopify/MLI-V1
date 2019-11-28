@@ -20,7 +20,6 @@ module Mutations
         inventory_item_state_id: inventory_item_state_id)
 
         new_quantity = !inventory_item.nil? ? inventory_item.quantity + quantity :  quantity
-
           # if there is no inventory_item in that state yet
           if inventory_item.nil?
               begin

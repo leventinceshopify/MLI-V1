@@ -1,0 +1,19 @@
+.inventoryItems {
+
+}
+
+.available {
+  background-color: #67ad03;
+  width:100px;
+}
+
+
+label {
+  width: 150px;
+  display: inline-block;
+  background-color:  #f2efed;
+}
+
+.quantity {
+  width:30px;
+}
