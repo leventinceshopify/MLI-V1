@@ -5,89 +5,37 @@ module Mutations
     # arguments passed to the `resolved` method
     argument :item_id, ID, required: true
     argument :location_id, ID, required: true
-    argument :quantity, Integer, required: true
+    argument :count, Integer, required: true
     # return type from the mutation
-    field :inventory_items, [Types::InventoryItemType], null: false
+    field :inventory_items, [Types::InventoryItemType], null: true
     field :errors, [String], null: true
 
-    def resolve(item_id:, location_id:, quantity:)
+    def resolve(item_id:, location_id:, count:)
 
-      # Make sure there enough item in the ordered state
-      items_exist = false
-      inventory_items = Array.new
-      inventory_item_state_id = InventoryItemState.find_by(name: "Ordered").id
-      item = Item.find(item_id)
+      returned_inventory_items = Array.new(0)
+      returned_errors = Array.new(0)
+      allow_destroy_inital_state = true
 
-      inventory_item = InventoryItem.find_by(
-        location_id: location_id,
-        item_id: item.id,
-        inventory_item_state_id: inventory_item_state_id)
+      inventory_item_params = {item_id: item_id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  "Not_Sellable" ).id, count: count }
+      inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, "Ordered")
+      initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
 
-        if !inventory_item.nil?
-          dropped_quantity = inventory_item.quantity >= quantity ? quantity : inventory_item.quantity
-          items_exist = true
-        end
+      returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
+      returned_errors.push(initial_state_result[:errors])
+      inventory_item_params[:count] = initial_state_result[:dropped_count]
 
-        if items_exist
-          # Update the ordered inventory_item quantity
-          begin
-            if (inventory_item.quantity - dropped_quantity)==0
-              if inventory_item.destroy
-              else
-                { errors: inventory_item.errors.full_messages }
-              end
-            else
-              if inventory_item.update(id: inventory_item.id, quantity: (inventory_item.quantity - dropped_quantity))
-                inventory_items.push( inventory_item)
-              else
-                { errors: inventory_item.errors.full_messages }
-              end
-            end
+      #-----------BORDER BETWEEN INITIAL AND FINAL STATE-------------
 
-          rescue StandardError
-            puts 'there is a problem in dropping ordered quantity from ordered state'
-          end
+      inventory_item_params[:inventory_item_condition_id] = InventoryItemCondition.find_by(name:  "Normal" ).id
+      inventory_item_in_final_state = get_item_in_this_state(inventory_item_params, "Incoming")
+      final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Incoming")
 
-          # add to new incoming state
+      returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
+      returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
 
-          inventory_item_state_id = InventoryItemState.find_by(name: "Incoming").id
-          inventory_item_condition_id = InventoryItemCondition.find_by(name: "Normal").id
-          inventory_item = InventoryItem.find_by(location_id: location_id,
-            item_id: item.id, inventory_item_state_id: inventory_item_state_id,
-            inventory_item_condition_id: inventory_item_condition_id)
+      {errors: returned_errors}  if returned_errors.length >0
+      {inventory_items: returned_inventory_items}
 
-            if inventory_item.nil?
-              new_quantity =  dropped_quantity
-              begin
-                if in_it = InventoryItem.create!(
-                  location: Location.find(location_id),
-                  item: Item.find(item.id),
-                  inventory_item_state: InventoryItemState.find(inventory_item_state_id),
-                  inventory_item_condition: InventoryItemCondition.find(inventory_item_condition_id),
-                  quantity: new_quantity)
-                  inventory_items.push(in_it)
-                else
-                  { errors: inventory_item.errors.full_messages }
-                end
-              rescue
-                puts 'there is a problem in creating inventory item in Incoming state'
-              end
-              # if there is an invnetory_item in that state, update the quantity
-            else
-              new_quantity = inventory_item.quantity + dropped_quantity
-              begin
-                if inventory_item.update(id: inventory_item.id, quantity: new_quantity)
-                  inventory_items.push( inventory_item)
-                else
-                  { errors: inventory_item.errors.full_messages }
-                end
-              rescue StandardError
-                puts 'there is a problem in updating inventory item in Incoming state'
-              end
-            end
-
-          end
-          {inventory_items: inventory_items}
-        end
-      end
     end
+  end
+end

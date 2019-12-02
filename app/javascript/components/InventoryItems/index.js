@@ -25,51 +25,68 @@ class ShowInventoryItems extends React.Component {
   // <img src = {require(`${imgpath}`)} width="100" height="80"/>
 
   render() {
-    return (<Query query={ShowInventoryQuery}>
+    return (<div><div className={cs.available.split}><Query query={ShowInventoryQuery}>
       {
         ({data, loading}) => (<div>
           <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button>
 
-          <table >
-            <tr>
-              <th>Location-I</th>
-              <th>Location-II</th>
-            </tr>
-            {
+          {
+            loading || !data.showInventory
+            ? "loading..."
+            : data.showInventory.map(inventory_item => {
+              return (
+                <ul key={inventory_item.id}>
+                  <tr>
+                    <td><label >{inventory_item.item.name}</label> - <label >{inventory_item.location.name}</label> - <label className={cs.available}>{inventory_item.inventoryItemState.name}</label>   </td>
+                    <td><label className="Polaris-Label Polaris-Button--primary">{inventory_item.inventoryItemCondition.name}</label> -
+                      <label className={cs.quantity}>{inventory_item.quantity}</label></td>
+                    </tr>
+                  </ul>)
+                })
+              }
 
+            </div>)
+          }
+        </Query></div>
 
+      <div  className={cs.split.rigth}><Query query={ShowInventoryQuery}>
+          {
+            ({data, loading}) => (<div>
+              <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button>
 
+              {
+                loading || !data.showInventory
+                ? "loading..."
+                : data.showInventory.map(inventory_item => {
+                  return (
+                    <ul key={inventory_item.id}>
+                      <tr>
+                        <td><label >{inventory_item.item.name}</label> - <label >{inventory_item.location.name}</label> - <label className={cs.available}>{inventory_item.inventoryItemState.name}</label>   </td>
+                        <td><label className="Polaris-Label Polaris-Button--primary">{inventory_item.inventoryItemCondition.name}</label> -
+                          <label className={cs.quantity}>{inventory_item.quantity}</label></td>
+                        </tr>
+                      </ul>)
+                    })
+                  }
 
-
-              loading || !data.showInventory
-              ? "loading..."
-              : data.showInventory.map(inventory_item => {
-
-                return (
-                  <ul key={inventory_item.id}>
-                    <tr>
-
-
-
-
-
-
-                      <td><label >{inventory_item.item.name}</label> - <label >{inventory_item.location.name}</label> - <label className={cs.available}>{inventory_item.inventoryItemState.name}</label>   </td>
-
-                      <td><label className="Polaris-Label Polaris-Button--primary">{inventory_item.inventoryItemCondition.name}</label> -
-                            <label className={cs.quantity}>{inventory_item.quantity}</label></td>
-
-                          </tr>
-                        </ul>)
-                      })
-                    }
-                  </table>
                 </div>)
               }
-            </Query>);
-          }
-        }
+            </Query></div></div>
+
+
+      );
 
 
 
-        export default ShowInventoryItems;
+
+
+
+
+
+
+      }
+    }
+
+
+
+    export default ShowInventoryItems;

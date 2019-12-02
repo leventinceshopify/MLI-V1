@@ -12,88 +12,33 @@ module Mutations
     field :errors, [String], null: true
 
     def resolve(item_id:, location_id:, inventory_item_state_name:, inventory_item_condition_name:)
-      # Make sure there enough item in the incoming state
-      items_exist = false
-      inventory_items = Array.new
-      inventory_item_state_id = InventoryItemState.find_by(name: inventory_item_state_name).id
-      inventory_item_condition_id = InventoryItemCondition.find_by(name: inventory_item_condition_name).id
-      item = Item.find(item_id)
 
-      inventory_item = InventoryItem.find_by(
-        location_id: location_id,
-        item_id: item.id,
-        inventory_item_state_id: inventory_item_state_id,
-        inventory_item_condition_id: inventory_item_condition_id)
+      returned_inventory_items = Array.new(0)
+      returned_errors = Array.new(0)
+      inventory_item_params = {item_id: item_id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  inventory_item_condition_name).id, count: 1 }
+      allow_destroy_inital_state = false
 
-        if !inventory_item.nil?
-          new_quantity = inventory_item.quantity - 1  > 0 ? inventory_item.quantity - 1 : 0
-          items_exist = true
-        end
-
-        if items_exist
-          # Update the  inventory_item quantity in the current state
-            if inventory_item_state_name == "Available" || inventory_item_state_name == "Critical Level"
-              if new_quantity <= item.quantity_threshold
-                inventory_item_state_id =  InventoryItemState.find_by(name: "Critical Level").id
-              elsif new_quantity == 0
-                inventory_item_state_id =  InventoryItemState.find_by(name: "Out of Stock").id
-              end
-            end
-            begin
-            if inventory_item.update(id: inventory_item.id,
-              inventory_item_state_id: inventory_item_state_id,
-              quantity: new_quantity)
-              inventory_items.push( inventory_item)
-            else
-              { errors: inventory_item.errors.full_messages }
-            end
-
-          rescue StandardError
-            puts 'there is a problem in dropping incoming quantity from incoming state'
-          end
-
-          # add to new lost state. First check if the inventory item exist in lost list
-
-          inventory_item_state_id = InventoryItemState.find_by(name: "Lost").id
-          inventory_item = InventoryItem.find_by(location_id: location_id,
-            item_id: item.id, inventory_item_state_id: inventory_item_state_id,
-            inventory_item_condition_id: InventoryItemCondition.find_by(name: "Not Sellable").id)
-
-
-            if inventory_item.nil?
-              new_quantity =  1
-              begin
-                if in_it = InventoryItem.create!(
-                  location: Location.find(location_id),
-                  item: Item.find(item.id),
-                  inventory_item_state:  InventoryItemState.find_by(name: "Lost"),
-                  inventory_item_condition: InventoryItemCondition.find_by(name: "Not Sellable"),
-                  quantity: new_quantity)
-
-                  inventory_items.push(in_it)
-                else
-                  { errors: inventory_item.errors.full_messages }
-                end
-              rescue
-                puts 'there is a problem in creating inventory item in Lost state'
-              end
-
-              # if there is an invnetory_item in that state, update the quantity
-            else
-              new_quantity = inventory_item.quantity + 1
-              begin
-                if inventory_item.update(id: inventory_item.id, inventory_item_state_id: inventory_item_state_id, quantity: new_quantity)
-                  inventory_items.push( inventory_item)
-                else
-                  { errors: inventory_item.errors.full_messages }
-                end
-              rescue StandardError
-                puts 'there is a problem in updating inventory item in Lost state'
-              end
-            end
-
-          end
-          {inventory_items: inventory_items}
-        end
+      inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, inventory_item_state_name)
+      initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
+      if inventory_item_state_name== "Available" || inventory_item_state_name== "Critical_Level"
+        set_sellable_item_state(initial_state_result)
       end
+
+      returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
+      returned_errors.push(initial_state_result[:errors])
+      inventory_item_params[:count] = initial_state_result[:dropped_count]
+
+      #-----------BORDER BETWEEN INITIAL AND FINAL STATE-------------
+
+      inventory_item_params[:inventory_item_condition_id] =   InventoryItemCondition.find_by(name:  "Not_Sellable" ).id
+      inventory_item_in_final_state = get_item_in_this_state(inventory_item_params, "Lost")
+      final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Lost")
+
+      returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
+      returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
+
+      {errors: returned_errors}  if returned_errors.length >0
+      {inventory_items: returned_inventory_items}
     end
+  end
+end
