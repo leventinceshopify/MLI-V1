@@ -4,6 +4,8 @@ import {ShowInventoryQuery, ShowInventoryPerLocationQuery1, ShowInventoryPerLoca
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
+import './styles.module.css'
+
 class ShowInventoryItems extends React.Component {
 
   // constructor(props) {
@@ -25,15 +27,47 @@ class ShowInventoryItems extends React.Component {
   // <img src = {require(`${imgpath}`)} width="100" height="80"/>
 
   render() {
-    return (<div><div className={cs.available.split}><Query query={ShowInventoryQuery}>
-      {
-        ({data, loading}) => (<div>
-          <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button>
 
+    const leftSide = {
+      height: '100%',
+      width: '50%',
+      position: 'fixed',
+      zIndex: '1',
+      top: '100',
+      paddingTop: '20px',
+      left: '0',
+      overflowX: 'hidden',
+      backgroundColor: '#f5f0f0'
+
+    }
+
+    const rightSide = {
+      height: '100%',
+      width: '50%',
+      position: 'fixed',
+      zIndex: '1',
+      top: '100',
+      paddingTop: '20px',
+      right: '0',
+      overflowX: 'hidden',
+      backgroundColor: '#d9d5d4'
+      }
+
+
+
+
+
+
+    return (<div><div ><Query query={ShowInventoryPerLocationQuery1}>
+      {
+        ({data, loading}) => (<div style={leftSide}>
+
+          <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button><br />
+          <h1> LOCATION I</h1>
           {
-            loading || !data.showInventory
+            loading || !data.showInventoryPerLocation
             ? "loading..."
-            : data.showInventory.map(inventory_item => {
+            : data.showInventoryPerLocation.map(inventory_item => {
               return (
                 <ul key={inventory_item.id}>
                   <tr>
@@ -49,15 +83,16 @@ class ShowInventoryItems extends React.Component {
           }
         </Query></div>
 
-      <div  className={cs.split.rigth}><Query query={ShowInventoryQuery}>
+      <div ><Query query={ShowInventoryPerLocationQuery2}>
           {
-            ({data, loading}) => (<div>
-              <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button>
+            ({data, loading}) => (<div style={rightSide}>
 
+              <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button> <br />
+              <h2> LOCATION II</h2>
               {
-                loading || !data.showInventory
+                loading || !data.showInventoryPerLocation
                 ? "loading..."
-                : data.showInventory.map(inventory_item => {
+                : data.showInventoryPerLocation.map(inventory_item => {
                   return (
                     <ul key={inventory_item.id}>
                       <tr>
