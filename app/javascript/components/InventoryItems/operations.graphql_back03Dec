@@ -20,32 +20,6 @@ query ShowInventoryQuery {
   }
 }
 
-query ShowInventoryPerLocationQuery($id: Integer!){
-  showInventoryPerLocation(id: $id) {
-    id
-    location{
-      id
-      name
-    }
-    item {
-      id
-      name
-    }
-    inventoryItemState {
-      name
-    }
-
-    inventoryItemCondition{
-      name
-    }
-    quantity
-  }
-}
-
-
-
-
-
 query ShowInventoryPerLocationQuery1{
   showInventoryPerLocation(id: 1) {
     id
@@ -87,14 +61,5 @@ query ShowInventoryPerLocationQuery2{
       name
     }
     quantity
-  }
-}
-
-
-
-query variants {
-allVariants {
-    id
-    name
   }
 }

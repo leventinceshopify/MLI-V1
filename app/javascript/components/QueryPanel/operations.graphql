@@ -1,0 +1,21 @@
+mutation sellVariantFromLocation ($variantId: ID!, $locationId: ID!, $inventoryItemConditionName: String!){
+
+  sellVariantFromLocation(variantId: $variantId, locationId: $locationId, inventoryItemConditionName: $inventoryItemConditionName)
+    {
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+}

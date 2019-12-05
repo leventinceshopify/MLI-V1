@@ -20,6 +20,17 @@ module Types
         end
 
 
+        field :variant, VariantType, null: false do
+              description "Returns the particular variant in the inventory"
+                argument :id, ID, required:true
+                # argument :name, String, required:false
+              end
+          def variant(id:)
+             Variant.find(id)
+             # Item.where(:id => id)
+          end
+
+
       field :all_products, [ProductType], null: false,
             description: "Returns the list of products sold by the merchant"
       def all_products
@@ -31,6 +42,14 @@ module Types
       def all_variants
         Variant.all
       end
+
+
+      field :all_locations, [LocationType], null: false,
+            description: "Returns the list of locations of the merchant"
+      def all_locations
+        Location.all
+      end
+
 
       field :all_item_variants, [ItemVariantType], null: false,
             description: "Returns the list of item variants bindingsh"

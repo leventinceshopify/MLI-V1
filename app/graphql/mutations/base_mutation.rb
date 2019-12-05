@@ -27,13 +27,18 @@ module Mutations
     #*********************************
 
     def check_availability_of_all_items(variant, location_id, condition_name, state_names)
+
+
+
+
+
+
       all_items_exist = true
       variant.items.each do |item|
         inventory_item = InventoryItem.find_by(
           location_id: location_id, item_id: item.id,
           inventory_item_state_id: state_names.map{|state| InventoryItemState.find_by(name: state).id},
           inventory_item_condition_id: InventoryItemCondition.find_by(name: condition_name).id)
-
           if inventory_item.nil?
             all_items_exist = false
             break
@@ -44,13 +49,16 @@ module Mutations
 
       def get_item_from_sellable_state(inventory_item_params)
 
+        initial_condition = inventory_item_params[:inventory_item_condition_id]
         inventory_item_in_sellable_state = get_item_in_this_state(inventory_item_params, "Available")
 
         if inventory_item_in_sellable_state.nil?
           inventory_item_in_sellable_state = get_item_in_this_state(inventory_item_params, "Critical_Level")
         end
         if inventory_item_in_sellable_state.nil?
+          inventory_item_params[:inventory_item_condition_id] =   InventoryItemCondition.find_by(name: "Not_Sellable" ).id
           inventory_item_in_sellable_state = get_item_in_this_state(inventory_item_params, "Out_of_Stock")
+          inventory_item_params[:inventory_item_condition_id] = initial_condition
         end
 
         return inventory_item_in_sellable_state
@@ -143,7 +151,7 @@ module Mutations
           else
             new_quantity = to_be_modified_inventory_item.quantity + count
             begin
-              if to_be_modified_inventory_item.update(id: to_be_modified_inventory_item.id, quantity: new_quantity)
+              if to_be_modified_inventory_item.update(id: to_be_modified_inventory_item.id, quantity: new_quantity, inventory_item_condition_id: inventory_item_params[:inventory_item_condition_id])
                 return_params[:inventory_item] = to_be_modified_inventory_item
               else
                 return_params[:errors] = inventory_item.errors.full_messages
@@ -160,10 +168,13 @@ module Mutations
         if !state_result[:inventory_item].nil?
             if (state_result[:inventory_item].quantity > state_result[:inventory_item].item.quantity_threshold)
               state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "Available"))
+
+
             elsif (state_result[:inventory_item].quantity == 0)
-              state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "Out_of_Stock"))
+              state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "Out_of_Stock"), inventory_item_condition: InventoryItemCondition.find_by(name: "Not_Sellable"))
             else
               state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "CriticaL_Level"))
+
             end
           end
         end

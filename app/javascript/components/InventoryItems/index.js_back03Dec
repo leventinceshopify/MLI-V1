@@ -1,11 +1,6 @@
 import React, {useState, setState, Component} from "react";
 import {Query} from "react-apollo";
-import {ShowInventoryQuery, ShowInventoryPerLocationQuery1, ShowInventoryPerLocationQuery2, variants} from "./operations.graphql";
-
-// import VariantsList from '../VariantsList';
-import QueryPanel from '../QueryPanel';
-
-
+import {ShowInventoryQuery, ShowInventoryPerLocationQuery1, ShowInventoryPerLocationQuery2} from "./operations.graphql";
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
@@ -254,21 +249,15 @@ class ShowInventoryItems extends React.Component {
       backgroundColor: '#d9d5d4'
     }
 
-// variables = {{id: 1}}
 
 
-    return (<div>
 
-      <QueryPanel />
-      <div style={leftSide}><Query query={ShowInventoryPerLocationQuery1} >
+    return (<div><div style={leftSide}><Query query={ShowInventoryPerLocationQuery1}>
       {
         ({data, loading}) => (<div >
 
           <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button><br />
           <h1> LOCATION I</h1>
-
-
-
           {
             loading || !data.showInventoryPerLocation
             ? "loading..."

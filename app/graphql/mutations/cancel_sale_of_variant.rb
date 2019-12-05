@@ -15,9 +15,10 @@ module Mutations
       returned_errors = Array.new(0)
       allow_destroy_inital_state = true
       variant = Variant.find(variant_id)
-      
+
 
       all_items_exist_at_location = check_availability_of_all_items(variant, location_id, "Not_Sellable", ["Committed"])
+ActiveRecord::Base.transaction do
       all_items_exist_at_location && variant.items.each do |item|
 
         inventory_item_params = {item_id: item.id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name: "Not_Sellable").id, count: 1 }
@@ -38,6 +39,8 @@ module Mutations
         returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
         returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
       end
+
+    end
       {errors: returned_errors}  if returned_errors.length >0
       {inventory_items: returned_inventory_items}
     end

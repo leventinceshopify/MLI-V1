@@ -1,0 +1,17 @@
+query listItemsofVariant ($id : ID!){
+  variant (id: $id) {
+    id
+    items {
+      id
+      name
+    }
+  }
+}
+
+
+query variants {
+allVariants {
+    id
+    name
+  }
+}

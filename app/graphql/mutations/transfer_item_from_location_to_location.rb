@@ -20,24 +20,25 @@ module Mutations
 
       inventory_item_params = {item_id: item_id, location_id: source_location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  inventory_item_condition_name ).id, count: count }
 
-      inventory_item_in_inital_state = get_item_from_sellable_state(inventory_item_params)
-      initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
-      set_sellable_item_state(initial_state_result)
+      ActiveRecord::Base.transaction do
+        inventory_item_in_inital_state = get_item_from_sellable_state(inventory_item_params)
+        initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
+        set_sellable_item_state(initial_state_result)
 
-      returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
-      returned_errors.push(initial_state_result[:errors])
-      inventory_item_params[:count] = initial_state_result[:dropped_count]
+        returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
+        returned_errors.push(initial_state_result[:errors])
+        inventory_item_params[:count] = initial_state_result[:dropped_count]
 
- #-----------BORDER BETWEEN INITIAL AND FINAL STATE-------------
+        #-----------BORDER BETWEEN INITIAL AND FINAL STATE-------------
 
-      inventory_item_params[:location_id] = destination_location_id
-      inventory_item_in_final_state = get_item_from_sellable_state(inventory_item_params)
-      final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Critical_Level")
-      set_sellable_item_state(final_state_result)
+        inventory_item_params[:location_id] = destination_location_id
+        inventory_item_in_final_state = get_item_from_sellable_state(inventory_item_params)
+        final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Critical_Level")
+        set_sellable_item_state(final_state_result)
 
-      returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
-      returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
-
+        returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
+        returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
+      end
       {errors: returned_errors}  if returned_errors.length >0
       {inventory_items: returned_inventory_items}
 

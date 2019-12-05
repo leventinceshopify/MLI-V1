@@ -15,7 +15,7 @@ module Mutations
       returned_inventory_items = Array.new(0)
       returned_errors = Array.new(0)
       allow_destroy_inital_state = true
-
+ActiveRecord::Base.transaction do
       inventory_item_params = {item_id: item_id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  "Not_Sellable" ).id, count: count }
       inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, "Ordered")
       initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
@@ -32,7 +32,7 @@ module Mutations
 
       returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
       returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
-
+end
       {errors: returned_errors}  if returned_errors.length >0
       {inventory_items: returned_inventory_items}
 
