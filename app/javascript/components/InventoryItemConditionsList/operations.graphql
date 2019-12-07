@@ -1,0 +1,9 @@
+
+
+
+query inventoryItemConditions {
+allInventoryItemConditions {
+    id
+    name
+  }
+}

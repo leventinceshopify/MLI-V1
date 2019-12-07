@@ -50,6 +50,18 @@ module Types
         Location.all
       end
 
+      field :all_inventory_item_conditions, [InventoryItemConditionType], null: false,
+            description: "Returns the list of inventory item conditions"
+      def all_inventory_item_conditions
+        InventoryItemCondition.all
+      end
+
+      field :all_inventory_item_states, [InventoryItemStateType], null: false,
+            description: "Returns the list of inventory item states"
+      def all_inventory_item_states
+        InventoryItemState.all
+      end
+
 
       field :all_item_variants, [ItemVariantType], null: false,
             description: "Returns the list of item variants bindingsh"

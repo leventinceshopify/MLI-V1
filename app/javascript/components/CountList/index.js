@@ -2,27 +2,23 @@ import React, {useState, setState, Component} from "react";
 import {Query} from "react-apollo";
 import { useQuery } from '@apollo/react-hooks';
 
-import {variants} from "./operations.graphql";
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
 // import './styles.module.css'
 
-function VariantsList  ({ onVariantSelected }) {
-  const { loading, error, data } = useQuery(variants);
+function CountList  ({ onCountSelected }) {
 
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
 
     return (
 
-      <select name="variant" onChange={onVariantSelected}>
+      <select name="count" onChange={onCountSelected}>
         <option>
-          Select a Variant
+          Select a Quantity
         </option>
-        {data.allVariants.map(variant => (
-          <option key={variant.id} value={variant.id}>
-            {variant.name}
+        {[...Array(100).keys()].map(c => (
+          <option key={c} value={Number(c)}>
+            {c}
           </option>
         ))}
       </select>
@@ -50,5 +46,5 @@ function VariantsList  ({ onVariantSelected }) {
 //
 
 
-export default VariantsList;
+export default CountList;
 // export default {VariantsList, ItemsofVariant};

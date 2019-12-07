@@ -17,6 +17,9 @@ function LocationsList  ({ onLocationSelected }) {
     return (
 
       <select name="location" onChange={onLocationSelected}>
+        <option>
+          Select a Location
+        </option>
         {data.allLocations.map(location => (
           <option key={location.id} value={location.id}>
             {location.name}

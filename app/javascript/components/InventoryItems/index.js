@@ -13,13 +13,6 @@ import './styles.module.css'
 
 class ShowInventoryItems extends React.Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     hideVariant: false,
-  //     hideButtonText: "Hide Variants"
-  //   };
-  // }
 
   showWhatButtonDoes = () => {
     // if (this.state.hideVariant) {
@@ -33,9 +26,6 @@ class ShowInventoryItems extends React.Component {
 
 
   showState = (state) => {
-
-
-
 
     const available_state = {
       backgroundColor: '#80a619',
@@ -163,7 +153,7 @@ class ShowInventoryItems extends React.Component {
     const item_style = {
       fontSize: '0.9em',
       fontWeight: 'bold',
-      width: '200px',
+      width: '230px',
       textAlign: 'center'
     }
 
@@ -264,10 +254,8 @@ class ShowInventoryItems extends React.Component {
       {
         ({data, loading}) => (<div >
 
-          <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button><br />
+        <br />
           <h1> LOCATION I</h1>
-
-
 
           {
             loading || !data.showInventoryPerLocation
@@ -292,7 +280,7 @@ class ShowInventoryItems extends React.Component {
           {
             ({data, loading}) => (<div>
 
-              <button onClick={this.showWhatButtonDoes} className="Polaris-Button Polaris-Button--primary" > "Sonra yazdir"</button> <br />
+               <br />
               <h2> LOCATION II</h2>
               {
                 loading || !data.showInventoryPerLocation

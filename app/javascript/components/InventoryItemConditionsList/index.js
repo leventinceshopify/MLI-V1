@@ -2,27 +2,27 @@ import React, {useState, setState, Component} from "react";
 import {Query} from "react-apollo";
 import { useQuery } from '@apollo/react-hooks';
 
-import {variants} from "./operations.graphql";
+import {inventoryItemConditions} from "./operations.graphql";
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
 // import './styles.module.css'
 
-function VariantsList  ({ onVariantSelected }) {
-  const { loading, error, data } = useQuery(variants);
+function InventoryItemConditionsList  ({ onInventoryItemConditionSelected }) {
+  const { loading, error, data } = useQuery(inventoryItemConditions);
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
 
     return (
 
-      <select name="variant" onChange={onVariantSelected}>
+      <select name="inventory_item_condition" onChange={onInventoryItemConditionSelected}>
         <option>
-          Select a Variant
+          Select a Condition
         </option>
-        {data.allVariants.map(variant => (
-          <option key={variant.id} value={variant.id}>
-            {variant.name}
+        {data.allInventoryItemConditions.map(inventory_item_condition => (
+          <option key={inventory_item_condition.id} value={inventory_item_condition.name}>
+            {inventory_item_condition.name}
           </option>
         ))}
       </select>
@@ -50,5 +50,5 @@ function VariantsList  ({ onVariantSelected }) {
 //
 
 
-export default VariantsList;
+export default InventoryItemConditionsList;
 // export default {VariantsList, ItemsofVariant};

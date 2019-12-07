@@ -13,7 +13,7 @@ module Mutations
     def resolve(item_id:, location_id:, count:)
       returned_inventory_items = Array.new(0)
       returned_errors = Array.new(0)
-      inventory_item_params = {item_id: item_id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  "Normal" ).id, count: count }
+      inventory_item_params = {item_id: item_id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  "Not_Sellable" ).id, count: count }
       allow_destroy_inital_state = true
 ActiveRecord::Base.transaction do
       inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, "Ordered")

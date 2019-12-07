@@ -3,23 +3,6 @@ module Mutations
 
   class BaseMutation < GraphQL::Schema::Mutation
 
-    # # initial_state is an array
-    # def realize_state_transition(inventory_item_params, initial_state, next_state, allow_destroy_inital_state)
-    #
-    #   transition_result = Hash.new(0)
-    #
-    #   # INITIAL STATE
-    #   to_be_modified_inventory_item = get_item_in_this_state(inventory_item_params,initial_state)
-    #   initial_state_result = update_initial_state(to_be_modified_inventory_items, inventory_item_params_list[:count], allow_destroy_inital_state)
-    #
-    #   # FINAL STATE
-    #   to_be_modified_inventory_items = get_items_in_this_state(inventory_item_params_list, next_state)
-    #   final_state_result = update_final_state(to_be_modified_inventory_items, inventory_item_params_list, next_state)
-    #
-    #
-    #
-    # end
-
     #*********************************
     # get_item_in_this_state
     # CHECK IF AN INVENTORY_ITEM EXIST IN THIS STATE.
@@ -27,12 +10,6 @@ module Mutations
     #*********************************
 
     def check_availability_of_all_items(variant, location_id, condition_name, state_names)
-
-
-
-
-
-
       all_items_exist = true
       variant.items.each do |item|
         inventory_item = InventoryItem.find_by(

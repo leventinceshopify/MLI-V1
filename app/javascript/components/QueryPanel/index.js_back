@@ -1,0 +1,161 @@
+import React, {useState, setState, Component} from "react";
+import {Query} from "react-apollo";
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import {sellVariantFromLocation, cancelVariantSaleFromLocation, shipVariantFromLocation, orderItemToLocation} from "./operations.graphql";
+
+import ItemsOfVariant from '../ItemsOfVariant';
+import VariantsList from '../VariantsList'
+import ItemsList from '../ItemsList'
+import LocationsList from '../LocationsList'
+import InventoryItemConditionsList from '../InventoryItemConditionsList'
+import CountList from '../CountList'
+
+
+import cs from './styles';
+import '@shopify/polaris/styles.css';
+
+
+
+function QueryPanel() {
+
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedInventoryItemCondition, setSelectedInventoryItemCondition] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedCount, setSelectedCount] = useState(null);
+
+
+
+
+  const [sellVariant] = useMutation(sellVariantFromLocation);
+  const [cancelVariantSale] = useMutation(cancelVariantSaleFromLocation);
+  const [shipVariant] = useMutation(shipVariantFromLocation);
+  const [orderItem] = useMutation(orderItemToLocation);
+
+
+    function onVariantSelected({ target }) {
+
+      setSelectedVariant(target.value);
+      console.log(selectedVariant);
+    }
+
+    function onItemSelected({ target }) {
+
+      setSelectedItem(target.value);
+      console.log(selectedItem);
+    }
+
+    function onLocationSelected({ target }) {
+
+      setSelectedLocation(target.value);
+      console.log(selectedLocation);
+    }
+
+
+    function onInventoryItemConditionSelected({ target }) {
+
+      setSelectedInventoryItemCondition(target.value);
+      console.log(selectedInventoryItemCondition);
+    }
+
+    function onCountSelected({ target }) {
+      console.log("PPPPPPPPPPPPPPPPPPPPP");
+      setSelectedCount(target.value);
+      console.log(selectedCount);
+    }
+
+
+    // function sellVariant({ target }) {
+    //
+    //   setSelectedVariant(target.value);
+    //   console.log(selectedVariant);
+    // }
+    return (
+
+        <div >
+        <form style={{ width: "60%"}}>
+          <VariantsList onVariantSelected={onVariantSelected} />   <LocationsList onLocationSelected={onLocationSelected} /> <InventoryItemConditionsList onInventoryItemConditionSelected={onInventoryItemConditionSelected} /> <br/>
+          {selectedVariant && <ItemsOfVariant id={selectedVariant}  />}
+
+
+            <label style={{ width: "50px" }}>Variant</label>
+            <input
+               name="variantId"
+
+               value={selectedVariant}
+
+               style={{ width: "0px" }}
+             />
+           <label style={{ width: "90px" }}>  Sale Location</label>
+             <input
+                name="locationId"
+
+                value={selectedLocation}
+
+                style={{ width: "0px" }}
+              />
+
+              <input
+                 name="inventoryItemConditionId"
+
+                 value={selectedInventoryItemCondition}
+
+                 style={{ width: "0px" }}
+               />
+             <button onClick={e => {
+               e.preventDefault();
+               sellVariant({ variables: { variantId: selectedVariant,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition} });
+
+             }}   type="submit">Sell Variant</button>
+             <button onClick={e => {
+               e.preventDefault();
+               cancelVariantSale({ variables: { variantId: selectedVariant,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition} });
+               window.location.reload();
+             }}   type="submit">Cancel Sale</button>
+
+             <button onClick={e => {
+               e.preventDefault();
+               shipVariant({ variables: { variantId: selectedVariant,  locationId: selectedLocation} });
+               window.location.reload();
+             }}   type="submit">Ship Variant</button>
+
+         </form>
+
+         <form style={{ width: "60%"}}>
+           <ItemsList  onItemSelected={onItemSelected} />   <LocationsList onLocationSelected={onLocationSelected} /> <InventoryItemConditionsList onInventoryItemConditionSelected={onInventoryItemConditionSelected} /><br/>
+       <CountList onCountSelected={onCountSelected}/>
+
+
+
+              <button onClick={e => {
+                e.preventDefault();
+                orderItem({ variables: { itemId: selectedItem,  locationId: selectedLocation, count: Number(selectedCount)} });
+                window.location.reload();
+              }}   type="submit">Order Item</button>
+
+
+          </form>
+
+
+
+
+
+
+        </div>
+
+
+    );
+
+}
+
+const showWhatButtonDoes = () => {
+
+console.log("ME PRESSED")
+
+}
+
+
+
+export default QueryPanel;
+// export default {VariantsList, ItemsofVariant};

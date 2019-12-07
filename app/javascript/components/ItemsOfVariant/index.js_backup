@@ -15,18 +15,12 @@ function ItemsOfVariant ({ id }) {
     if (error) return `Error! ${error}`;
 
     return (
-
-
-      <select name="item" >
+      <ul>
 
         {data.variant.items.map(item => (
-          <option key={item.id} value={item.id}>
-            {item.name}
-          </option>
+          <li key={item.id}>{item.name}</li>
         ))}
-      </select>
-
-
+      </ul>
 
     );
 

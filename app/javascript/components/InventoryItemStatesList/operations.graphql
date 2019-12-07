@@ -1,0 +1,9 @@
+
+
+
+query inventoryItemStates {
+allInventoryItemStates {
+    id
+    name
+  }
+}

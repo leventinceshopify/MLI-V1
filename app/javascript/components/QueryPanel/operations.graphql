@@ -19,3 +19,230 @@ mutation sellVariantFromLocation ($variantId: ID!, $locationId: ID!, $inventoryI
     }
   }
 }
+
+mutation cancelVariantSaleFromLocation ($variantId: ID!, $locationId: ID!, $inventoryItemConditionName: String!) {
+
+cancelSaleOfVariant(variantId: $variantId, locationId: $locationId, inventoryItemConditionName: $inventoryItemConditionName)
+    {
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+
+  }
+
+}
+
+
+mutation returnVariantToLocation ($variantId: ID!, $locationId: ID!, $inventoryItemConditionName: String!){
+
+  returnVariantToLocation(variantId: 10, locationId: 2, inventoryItemConditionName: "Used")
+  {
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+
+
+
+}
+
+
+mutation shipVariantFromLocation($variantId: ID!, $locationId: ID!){
+
+shipVariant(variantId: $variantId, locationId: $locationId)
+  {
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+
+}
+
+
+
+mutation orderItemToLocation($itemId: ID!, $locationId: ID!, $count: Int!){
+
+orderItemToLocation(itemId: $itemId, locationId: $locationId, count: $count)
+{
+     inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+}
+
+
+
+
+
+
+mutation removeOrderFromLocation ($itemId: ID!, $locationId: ID!, $count: Int!){
+
+  removeOrderOfItem(itemId: $itemId, locationId: $locationId, count: $count)
+
+  {
+
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+
+  }
+
+
+}
+
+
+
+
+
+
+
+mutation shipItemToLocation($itemId: ID!, $locationId: ID!, $count: Int!){
+
+shipItemToLocationFromSupplier(itemId: $itemId, locationId: $locationId, count: $count)
+{
+     inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+}
+
+mutation acceptAtLocation($itemId: ID!, $locationId: ID!, $inventoryItemConditionName: String!, $count: Int!){
+
+acceptItemsAtLocation(itemId: $itemId, locationId: $locationId, inventoryItemConditionName: $inventoryItemConditionName, count: $count)
+{
+     inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+}
+
+mutation markLost ($itemId: ID!, $locationId: ID!, $inventoryItemConditionName: String!, $inventoryItemStateName: String!){
+
+  markItemLostAtLocationFromState(itemId: $itemId, locationId: $locationId, inventoryItemConditionName: $inventoryItemConditionName, inventoryItemStateName: $inventoryItemStateName)
+  {
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+  }
+
+}
+
+mutation transfer ($itemId: ID!, $sourceLocationId: ID!, $destinationLocationId: ID!, $inventoryItemConditionName: String!, $count: Int!){
+  transferItemFromLocationToLocation(itemId: $itemId, sourceLocationId: $sourceLocationId, destinationLocationId: $destinationLocationId, inventoryItemConditionName: $inventoryItemConditionName, count: $count)
+  {
+
+    inventoryItems {
+      item{
+        name
+      }
+      location {
+        name
+      }
+      inventoryItemState {
+        name
+      }
+      inventoryItemCondition {
+        name
+      }
+      quantity
+    }
+
+  }
+
+}
