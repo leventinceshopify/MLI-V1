@@ -16,7 +16,7 @@ function InventoryItemConditionsList  ({ onInventoryItemConditionSelected }) {
 
     return (
 
-      <select name="inventory_item_condition" onChange={onInventoryItemConditionSelected}>
+      <select name="inventory_item_condition" onChange={onInventoryItemConditionSelected} style={{width: '200px', height: '25px'}}>
         <option>
           Select a Condition
         </option>

@@ -1,0 +1,33 @@
+mutation createInventoryItemCondition ( $name: String!){
+
+createInventoryItemCondition ( name: $name) {
+
+      id
+      name
+    }
+}
+
+mutation deleteInventoryItemCondition ($name: String!){
+
+  deleteInventoryItemCondition(name: $name)
+    {
+  errors
+  }
+}
+
+mutation createInventoryItemState ( $name: String!){
+
+createInventoryItemState ( name: $name) {
+
+      id
+      name
+    }
+}
+
+mutation deleteInventoryItemState ($name: String!){
+
+  deleteInventoryItemState(name: $name)
+    {
+  errors
+  }
+}

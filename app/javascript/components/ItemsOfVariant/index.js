@@ -9,6 +9,7 @@ import '@shopify/polaris/styles.css';
 function ItemsOfVariant ({ id }) {
 
 
+
   const { loading, error, data } = useQuery(listItemsofVariant, { variables: { id }});
 
     if (loading) return null;
@@ -17,7 +18,7 @@ function ItemsOfVariant ({ id }) {
     return (
 
 
-      <select name="item" >
+      <select name="item" style={{width: '200px', height: '25px'}}>
 
         {data.variant.items.map(item => (
           <option key={item.id} value={item.id}>

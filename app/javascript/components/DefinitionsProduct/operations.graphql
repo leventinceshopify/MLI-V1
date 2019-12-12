@@ -1,0 +1,35 @@
+mutation createProduct ($name: String!, $description: String!, $picture: String!){
+
+  createProduct(name: $name, description: $description, picture: $picture)
+    {
+    name
+    description
+  }
+}
+
+mutation deleteProduct ($id: ID!){
+
+  deleteProduct(id: $id)
+    {
+  errors
+  }
+}
+
+mutation updateProduct ($id: ID!, $name: String!, $description: String!, $picture: String!){
+
+  updateProduct(id: $id, name: $name, description: $description, picture: $picture)
+    {
+    product {
+      id
+      name
+      description
+    }
+  }
+}
+query showProductInfo ($id : ID!){
+  product (id: $id) {
+    id
+    name
+    description
+  }
+}

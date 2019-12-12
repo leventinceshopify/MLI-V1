@@ -16,7 +16,7 @@ function ItemsList  ({ onItemSelected }) {
 
     return (
 
-      <select name="item" onChange={onItemSelected}>
+      <select name="item" onChange={onItemSelected} style={{width: '200px', height: '25px'}}>
         <option>
           Select an Item
         </option>

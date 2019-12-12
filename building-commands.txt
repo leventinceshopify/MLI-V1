@@ -75,3 +75,7 @@ https://github.com/Shopify/polaris-react#using-the-react-components
 to generate React components
 
 $ npx @hellsquirrel/create-gql-component create app/javascript/components/UserInfo
+
+GRaphQL testing
+
+https://selleo.com/blog/testing-graphql-mutations-in-ruby-on-rails-with-rspec

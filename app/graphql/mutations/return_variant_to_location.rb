@@ -14,10 +14,11 @@ module Mutations
 
       returned_inventory_items = Array.new(0)
       returned_errors = Array.new(0)
-      allow_destroy_inital_state = false
+      allow_destroy_inital_state = true
       variant = Variant.find(variant_id)
 
       all_items_exist_at_location = check_availability_of_all_items(variant, location_id, "Not_Sellable", ["Shipped"])
+
 ActiveRecord::Base.transaction do
       all_items_exist_at_location && variant.items.each do |item|
 

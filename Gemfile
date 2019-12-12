@@ -66,3 +66,8 @@ gem 'react-rails'
 
 
 gem 'seed_dump', '~> 3.3', '>= 3.3.1'
+
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 3.8'
+end

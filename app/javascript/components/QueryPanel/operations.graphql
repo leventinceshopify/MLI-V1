@@ -47,7 +47,7 @@ cancelSaleOfVariant(variantId: $variantId, locationId: $locationId, inventoryIte
 
 mutation returnVariantToLocation ($variantId: ID!, $locationId: ID!, $inventoryItemConditionName: String!){
 
-  returnVariantToLocation(variantId: 10, locationId: 2, inventoryItemConditionName: "Used")
+  returnVariantToLocation(variantId: $variantId, locationId: $locationId, inventoryItemConditionName: $inventoryItemConditionName)
   {
     inventoryItems {
       item{
@@ -65,10 +65,8 @@ mutation returnVariantToLocation ($variantId: ID!, $locationId: ID!, $inventoryI
       quantity
     }
   }
-
-
-
 }
+
 
 
 mutation shipVariantFromLocation($variantId: ID!, $locationId: ID!){

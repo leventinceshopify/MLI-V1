@@ -21,5 +21,14 @@ module Types
     field :transfer_item_from_location_to_location, mutation: Mutations::TransferItemFromLocationToLocation
     field :remove_order_of_item, mutation: Mutations::RemoveOrderOfItem
     field :cancel_sale_of_variant, mutation: Mutations::CancelSaleOfVariant
+    field :delete_product, mutation: Mutations::DeleteProduct
+    field :delete_variant, mutation: Mutations::DeleteVariant
+    field :delete_item_variant, mutation: Mutations::DeleteItemVariant
+    field :update_variant, mutation: Mutations::UpdateVariant
+    field :update_item, mutation: Mutations::UpdateItem
+    field :delete_item, mutation: Mutations::DeleteItem
+    field :delete_inventory_item_condition, mutation: Mutations::DeleteInventoryItemCondition
+    field :delete_inventory_item_state, mutation: Mutations::DeleteInventoryItemState
+
   end
 end

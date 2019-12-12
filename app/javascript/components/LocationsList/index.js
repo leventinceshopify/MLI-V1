@@ -16,7 +16,7 @@ function LocationsList  ({ onLocationSelected }) {
 
     return (
 
-      <select name="location" onChange={onLocationSelected}>
+      <select  name="location" onChange={onLocationSelected} style={{width: '200px', height: '25px'}}>
         <option>
           Select a Location
         </option>
@@ -26,6 +26,10 @@ function LocationsList  ({ onLocationSelected }) {
           </option>
         ))}
       </select>
+
+
+
+
     );
 }
 

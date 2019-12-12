@@ -6,6 +6,7 @@ import {variants} from "./operations.graphql";
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
+
 // import './styles.module.css'
 
 function VariantsList  ({ onVariantSelected }) {
@@ -14,9 +15,9 @@ function VariantsList  ({ onVariantSelected }) {
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
 
-    return (
+    return ( 
 
-      <select name="variant" onChange={onVariantSelected}>
+      <select name="variant" onChange={onVariantSelected} style={{width: '200px', height: '25px'}}>
         <option>
           Select a Variant
         </option>
@@ -26,6 +27,8 @@ function VariantsList  ({ onVariantSelected }) {
           </option>
         ))}
       </select>
+
+
     );
 }
 

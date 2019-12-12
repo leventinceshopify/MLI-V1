@@ -13,6 +13,7 @@ module Mutations
 
     def resolve(name: nil, product_id: nil, description: nil,
       price: nil, size: nil,  picture: nil)
+      variant = Variant.find_by(name: name)
       Variant.create!(
         name: name,
         product: Product.find(product_id),
@@ -20,7 +21,7 @@ module Mutations
         price: price,
         size: size,
         picture: picture
-      )
+      ) if variant.nil?
     end
   end
 end

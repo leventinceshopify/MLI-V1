@@ -1,0 +1,33 @@
+mutation createVariantOfProduct ($name: String!, $productId: ID!, $description: String!, $price: Float!, $size: String!, $picture: String!){
+
+  createVariant(name: $name, productId: $productId, description: $description, price: $price, size: $size, picture: $picture)
+    {
+    id
+    name
+    description
+    product{
+      id
+    }
+    price
+  }
+}
+
+mutation deleteVariant ($id: ID!){
+
+  deleteVariant(id: $id)
+    {
+  errors
+  }
+}
+
+mutation updateVariant ($id: ID!, $name: String!, $productId: ID!, $description: String!, $price: Float!, $size: String!, $picture: String!){
+
+  updateVariant(id: $id, name: $name, productId: $productId, description: $description, price: $price, size: $size, picture: $picture)
+    {
+    variant {
+      id
+      name
+      description
+    }
+  }
+}

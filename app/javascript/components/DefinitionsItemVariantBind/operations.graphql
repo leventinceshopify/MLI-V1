@@ -1,0 +1,22 @@
+mutation bindItemToVariant ($itemId: ID!, $variantId: ID! ){
+
+bindItemToVariant (itemId: $itemId, variantId: $variantId) {
+
+      item {
+        name
+      }
+      variant {
+      name
+      }
+    }
+}
+
+
+
+mutation deleteItemVariant ($id: ID!){
+
+  deleteItemVariant(id: $id)
+    {
+  errors
+  }
+}

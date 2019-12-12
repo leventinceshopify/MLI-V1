@@ -16,7 +16,7 @@ function InventoryItemStatesList  ({ onInventoryItemStateSelected }) {
 
     return (
 
-      <select name="inventory_item_state" onChange={onInventoryItemStateSelected}>
+      <select name="inventory_item_state" onChange={onInventoryItemStateSelected} style={{width: '200px', height: '25px'}}>
         <option>
           Select a State
         </option>

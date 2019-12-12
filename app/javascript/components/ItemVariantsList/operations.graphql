@@ -1,0 +1,15 @@
+
+
+query itemVariants {
+  allItemVariants {
+    id
+    variant{
+      id
+      name
+    }
+    item {
+      id
+      name
+    }
+  }
+}

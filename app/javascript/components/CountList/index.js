@@ -12,7 +12,7 @@ function CountList  ({ onCountSelected }) {
 
     return (
 
-      <select name="count" onChange={onCountSelected}>
+      <select name="count" onChange={onCountSelected} style={{width: '200px', height: '25px'}}>
         <option>
           Select a Quantity
         </option>

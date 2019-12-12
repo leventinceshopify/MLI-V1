@@ -8,7 +8,7 @@ module Mutations
     argument :inventory_item_state_name, String, required: true
     argument :inventory_item_condition_name, String, required: true
     # return type from the mutation
-    field :inventory_items, [Types::InventoryItemType], null: false
+    field :inventory_items, [Types::InventoryItemType], null: true
     field :errors, [String], null: true
 
     def resolve(item_id:, location_id:, inventory_item_state_name:, inventory_item_condition_name:)

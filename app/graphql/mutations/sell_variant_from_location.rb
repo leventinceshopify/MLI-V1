@@ -9,7 +9,7 @@ module Mutations
     # return type from the mutation
     field :inventory_items, [Types::InventoryItemType], null: false
     field :errors, [String], null: true
-    
+
     def resolve(variant_id:, location_id:, inventory_item_condition_name:)
       returned_inventory_items = Array.new(0)
       returned_errors = Array.new(0)
@@ -21,6 +21,7 @@ module Mutations
         all_items_exist_at_location && variant.items.each do |item|
 
           inventory_item_params = {item_id: item.id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name:  inventory_item_condition_name ).id, count: 1 }
+          allow_destroy_inital_state = true if inventory_item_condition_name != "Normal"
           inventory_item_in_inital_state = get_item_from_sellable_state(inventory_item_params)
           initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
           set_sellable_item_state(initial_state_result)

@@ -42,6 +42,12 @@ module Mutations
 
       end
 
+      #*********************************
+      # get_item_in_this_state
+      # RETURNS THE INVENTORY ITEM IN THE SPECIFIED state
+      # IF THERE ISN'T SUCH A STATE OR THERE ISN'T AN Inventory
+      # ITEM IN THAT STATE, RETURNS NIL
+      #*********************************
 
       def get_item_in_this_state(inventory_item_params, state = nil)
 

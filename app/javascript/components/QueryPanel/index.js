@@ -15,6 +15,7 @@ import CountList from '../CountList'
 
 
 import {Button} from '@shopify/polaris';
+import { Card, DataTable, Page } from "@shopify/polaris";
 
 
 import cs from './styles';
@@ -29,8 +30,6 @@ function QueryPanel() {
   const [selectedInventoryItemState, setSelectedInventoryItemState] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedCount, setSelectedCount] = useState(null);
-
-
 
   const [sellVariant] = useMutation(sellVariantFromLocation);
   const [cancelVariantSale] = useMutation(cancelVariantSaleFromLocation);
@@ -94,33 +93,33 @@ function QueryPanel() {
     // }
     return (
 
-        <div >
-        <form style={{ width: "100%"}}>
-          <VariantsList onVariantSelected={onVariantSelected} />   <LocationsList onLocationSelected={onLocationSelected} /> <InventoryItemConditionsList onInventoryItemConditionSelected={onInventoryItemConditionSelected} /> <br/>
-          {selectedVariant && <ItemsOfVariant id={selectedVariant}  />}
 
-            <Button destructive>Delete theme</Button>
+        <div >
+      <form style={{ width: "100%"}}>
+          <VariantsList onVariantSelected={onVariantSelected} />{selectedVariant && <ItemsOfVariant id={selectedVariant}  />}  <LocationsList onLocationSelected={onLocationSelected} /> <InventoryItemConditionsList onInventoryItemConditionSelected={onInventoryItemConditionSelected} /> <br/>
+
+
 
              <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                e.preventDefault();
-               sellVariant({ variables: { variantId: selectedVariant,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition} });
-
+               sellVariant({ variables: { variantId: parseInt(selectedVariant),  locationId: parseInt(selectedLocation), inventoryItemConditionName: selectedInventoryItemCondition} });
+               window.location.reload();
              }}   type="submit">Sell Variant</button>
-             <button onClick={e => {
+             <button className="Polaris-Button Polaris-Button--destructive" onClick={e => {
                e.preventDefault();
-               cancelVariantSale({ variables: { variantId: selectedVariant,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition} });
+               cancelVariantSale({ variables: { variantId: parseInt(selectedVariant),  locationId: parseInt(selectedLocation), inventoryItemConditionName: selectedInventoryItemCondition} });
                window.location.reload();
              }}   type="submit">Cancel Sale</button>
 
-             <button onClick={e => {
+             <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                e.preventDefault();
                shipVariant({ variables: { variantId: selectedVariant,  locationId: selectedLocation} });
                window.location.reload();
              }}   type="submit">Ship Variant</button>
 
-             <button onClick={e => {
+             <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                e.preventDefault();
-               returnVariantToLoc({ variables: { variantId: selectedVariant,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition} });
+               returnVariantToLoc({ variables: { variantId: parseInt(selectedVariant),  locationId: parseInt(selectedLocation), inventoryItemConditionName: selectedInventoryItemCondition} });
                window.location.reload();
              }}   type="submit">Return Variant</button>
 
@@ -133,7 +132,7 @@ function QueryPanel() {
 
 
 
-              <button onClick={e => {
+              <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                 e.preventDefault();
                 orderItem({ variables: { itemId: selectedItem,  locationId: selectedLocation, count: Number(selectedCount)} });
                 window.location.reload();
@@ -145,25 +144,25 @@ function QueryPanel() {
                 window.location.reload();
               }}   type="submit">Remove Order</button>
 
-              <button onClick={e => {
+              <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                 e.preventDefault();
                 shipItemToLoc({ variables: { itemId: selectedItem,  locationId: selectedLocation, count: Number(selectedCount)} });
                 window.location.reload();
               }}   type="submit">Ship Item to Location</button>
 
-              <button onClick={e => {
+              <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                 e.preventDefault();
                 acceptItemAtLoc({ variables: { itemId: selectedItem,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition, count: Number(selectedCount)} });
                 window.location.reload();
               }}   type="submit">Accept Item at Location</button>
 
-              <button onClick={e => {
+              <button className="Polaris-Button Polaris-Button--destructive" onClick={e => {
                 e.preventDefault();
                 markItemLost({ variables: { itemId: selectedItem,  locationId: selectedLocation, inventoryItemConditionName: selectedInventoryItemCondition , inventoryItemStateName: selectedInventoryItemState} });
                 window.location.reload();
               }}   type="submit">Mark Lost</button>
 
-              <button onClick={e => {
+              <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                 e.preventDefault();
                 transferItem({ variables: { itemId: selectedItem,  sourceLocationId: selectedLocation, destinationLocationId: selectedLocation2,inventoryItemConditionName: selectedInventoryItemCondition , count: Number(selectedCount)} });
                 window.location.reload();

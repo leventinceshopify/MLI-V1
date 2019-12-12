@@ -15,12 +15,7 @@ class ShowInventoryItems extends React.Component {
 
 
   showWhatButtonDoes = () => {
-    // if (this.state.hideVariant) {
-    //   this.setState({hideVariant: false, hideButtonText: "Hide Variants"})
-    // } else {
-    //   this.setState({hideVariant: true, hideButtonText: "Show Variants"})
-    // }
-    // console.log("id button is pressed");
+
   }
   // <img src = {require(`${imgpath}`)} width="100" height="80"/>
 
@@ -32,7 +27,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const critical_level_state = {
@@ -40,7 +36,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const out_of_stock_state = {
@@ -49,7 +46,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const committed_state = {
@@ -57,7 +55,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const incoming_state = {
@@ -65,7 +64,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const ordered_state = {
@@ -73,7 +73,9 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
+
     }
 
     const lost_state = {
@@ -82,7 +84,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const shipped_state = {
@@ -91,22 +94,27 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
     const normal_state = {
       backgroundColor: '#80a619',
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
+
+
 
     const refurbished_state = {
       backgroundColor: '#e8e835',
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const used_state = {
@@ -114,7 +122,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const broken_state = {
@@ -123,7 +132,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const not_sellable_state = {
@@ -132,7 +142,8 @@ class ShowInventoryItems extends React.Component {
       textAlign: 'center',
       fontSize: '1.1em',
       fontWeight: 'bold',
-      width: '100px'
+      width: '100px',
+      borderRadius: '5px'
     }
 
     const quantity_style = {
@@ -141,20 +152,23 @@ class ShowInventoryItems extends React.Component {
       fontWeight: 'bold',
       width: '30px',
       textAlign: 'right',
+      borderRadius: '5px'
     }
 
     const location_style = {
       fontSize: '0.9em',
       fontWeight: 'bold',
       width: '120px',
-      textAlign: 'center'
+      textAlign: 'center',
+      borderRadius: '5px'
     }
 
     const item_style = {
       fontSize: '0.9em',
       fontWeight: 'bold',
-      width: '230px',
-      textAlign: 'center'
+      width: '300px',
+      textAlign: 'center',
+      borderRadius: '5px'
     }
 
 
@@ -208,8 +222,6 @@ class ShowInventoryItems extends React.Component {
       return item_style
       break;
 
-
-
       default:
       // code block
     }
@@ -228,7 +240,7 @@ class ShowInventoryItems extends React.Component {
       paddingTop: '20px',
       left: '0',
       overflowX: 'hidden',
-      backgroundColor: '#f5f0f0'
+      backgroundColor: '#f2f8fa'
 
     }
 
@@ -241,7 +253,7 @@ class ShowInventoryItems extends React.Component {
       paddingTop: '20px',
       right: '0',
       overflowX: 'hidden',
-      backgroundColor: '#d9d5d4'
+      backgroundColor: '#e6f4fa'
     }
 
 // variables = {{id: 1}}
@@ -253,9 +265,7 @@ class ShowInventoryItems extends React.Component {
       <div style={leftSide}><Query query={ShowInventoryPerLocationQuery1} >
       {
         ({data, loading}) => (<div >
-
-        <br />
-          <h1> LOCATION I</h1>
+          <h1 style={{width: '100%', textAlign: 'center'}}><b> LOCATION I</b></h1>
 
           {
             loading || !data.showInventoryPerLocation
@@ -264,7 +274,7 @@ class ShowInventoryItems extends React.Component {
               return (
                 <ul key={inventory_item.id}>
                   <tr>
-                    <td><label style={this.showState("Item")}>{inventory_item.item.name}</label> <label style={this.showState("Location")}>{inventory_item.location.name}</label> - <label style={this.showState(inventory_item.inventoryItemState.name)}>{inventory_item.inventoryItemState.name}</label>   </td>
+                    <td><label style={this.showState("Item")}>{inventory_item.item.name}</label> <label style={this.showState("Location")}>{inventory_item.location.name}</label><label style={this.showState(inventory_item.inventoryItemState.name)}>{inventory_item.inventoryItemState.name}</label></td>
                     <td><label style={this.showState(inventory_item.inventoryItemCondition.name)}>{inventory_item.inventoryItemCondition.name}</label>
                       <label style={this.showState("Quantity")}>{inventory_item.quantity}</label></td>
                     </tr>
@@ -279,9 +289,7 @@ class ShowInventoryItems extends React.Component {
         <div  style={rightSide}><Query query={ShowInventoryPerLocationQuery2}>
           {
             ({data, loading}) => (<div>
-
-               <br />
-              <h2> LOCATION II</h2>
+              <h1 style={{width: '100%', textAlign: 'center'}}><b> LOCATION II</b></h1>
               {
                 loading || !data.showInventoryPerLocation
                 ? "loading..."
@@ -289,7 +297,7 @@ class ShowInventoryItems extends React.Component {
                   return (
                     <ul key={inventory_item.id}>
                       <tr>
-                        <td><label style={this.showState("Item")}>{inventory_item.item.name}</label> <label style={this.showState("Location")}>{inventory_item.location.name}</label> - <label style={this.showState(inventory_item.inventoryItemState.name)}>{inventory_item.inventoryItemState.name}</label>   </td>
+                        <td><label style={this.showState("Item")}>{inventory_item.item.name}</label> <label style={this.showState("Location")}>{inventory_item.location.name}</label><label style={this.showState(inventory_item.inventoryItemState.name)}>{inventory_item.inventoryItemState.name}</label>   </td>
                         <td><label style={this.showState(inventory_item.inventoryItemCondition.name)}>{inventory_item.inventoryItemCondition.name}</label>
                           <label style={this.showState("Quantity")}>{inventory_item.quantity}</label></td>
                         </tr>

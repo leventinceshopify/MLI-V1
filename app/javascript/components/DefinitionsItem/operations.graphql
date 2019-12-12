@@ -1,0 +1,30 @@
+mutation createItem ($sku: Int!, $name: String!, $description: String!, $cost: Float!, $quantityThreshold: Int!, $size: String!, $manufacturer: String!, $picture: String!){
+
+createItem (sku: $sku, name: $name, description: $description, cost: $cost, quantityThreshold: $quantityThreshold, size: $size, manufacturer: $manufacturer, picture: $picture) {
+
+      id
+      name
+    }
+}
+
+
+
+mutation deleteItem ($id: ID!){
+
+  deleteItem(id: $id)
+    {
+  errors
+  }
+}
+
+mutation updateItem ($id: ID!, $sku: Int!, $name: String!, $description: String!, $cost: Float!, $quantityThreshold: Int!, $size: String!, $manufacturer: String!, $picture: String!){
+
+  updateItem(id: $id, sku: $sku, name: $name, description: $description, cost: $cost, quantityThreshold: $quantityThreshold, size: $size, manufacturer: $manufacturer, picture: $picture)
+    {
+    item {
+      id
+      name
+      description
+    }
+  }
+}

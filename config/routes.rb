@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   root 'inventory#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  match '*path', to: 'inventory#index', via: :all
 end

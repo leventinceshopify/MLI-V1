@@ -11,17 +11,9 @@ module Mutations
     def resolve(item_id: nil, variant_id: nil)
       v = Variant.find(variant_id)
       i = Item.find(item_id)
-      ItemVariant.create!(
-        variant: v,
-        item: i
-      )
-       # v.items.push(i)
-       # i.variants << v
-
-      # ItemVariant.create!(
-      #   item: Item.find(item_id),
-      #   variant: Variant.find(variant_id)
-      # )
+      vi = ItemVariant.find_by(item_id: item_id, variant_id: variant_id)
+      
+      ItemVariant.create!(variant: v,item: i) if vi.nil?
     end
   end
 end

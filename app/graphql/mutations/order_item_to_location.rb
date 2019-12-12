@@ -17,14 +17,7 @@ ActiveRecord::Base.transaction do
         #-----------BORDER BETWEEN INITIAL AND FINAL STATE THERE IS NO INITAL STATE-------------
       inventory_item_in_final_state = get_item_in_this_state(inventory_item_params, "Ordered")
 
-      puts "ORDERING FROM REACT"
-      puts "ORDERING FROM REACT"
-      puts "ORDERING FROM REACT"
-
-
-
       final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Ordered")
-
 
       returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
       returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?

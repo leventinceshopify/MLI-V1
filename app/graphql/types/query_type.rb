@@ -30,6 +30,16 @@ module Types
              # Item.where(:id => id)
           end
 
+          field :product, ProductType, null: false do
+                description "Returns the particular product in the inventory"
+                  argument :id, ID, required:true
+                  # argument :name, String, required:false
+                end
+            def product(id:)
+               Product.find(id)
+               # Item.where(:id => id)
+            end
+
 
       field :all_products, [ProductType], null: false,
             description: "Returns the list of products sold by the merchant"
