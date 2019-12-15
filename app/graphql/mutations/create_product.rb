@@ -5,8 +5,6 @@ module Mutations
     argument :description, String, required: true
     argument :picture, String, required: false
 
-    # return type from the mutation
-    # type Types::ProductType
     type Types::ProductType
 
 

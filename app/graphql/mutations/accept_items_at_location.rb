@@ -7,7 +7,6 @@ module Mutations
     argument :location_id, ID, required: true
     argument :inventory_item_condition_name, String, required: true
     argument :count, Integer, required: true
-    # return type from the mutation
     field :inventory_items, [Types::InventoryItemType], null: false
     field :errors, [String], null: true
 
@@ -25,7 +24,6 @@ module Mutations
           inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, "Incoming")
         end
         initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
-
         returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
         returned_errors.push(initial_state_result[:errors])
         inventory_item_params[:count] = initial_state_result[:dropped_count].nil? ? 0 : initial_state_result[:dropped_count]

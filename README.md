@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The app is developed on dev environment presented by Shopify.
+See the Gemfile and package.json files for system dependencies.
+The database schema is in db/schema.rb file.
 
-Things you may want to cover:
+The JS code is developed under app/javascript directory and associated webpacker javascript_pack_tag helper to
+view layer of Rails app.
+Each React component is developed under app/javascript/components directory in specific assigned folders.
+The corresponding GraphQL queries and mutations on front-end side are in operations.graphql files.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+As the test suit, Rspec is used.  

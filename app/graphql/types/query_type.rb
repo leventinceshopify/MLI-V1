@@ -93,12 +93,6 @@ module Types
         InventoryItem.all.where(:location_id => id)
       end
 
-      # field :all_locations, [LocationType], null: false,
-      #       description: "Returns the list of locations where inventory is kept"
-      # def all_locations
-      #   Location.all
-      # end
-
       field :me, Types::AdminType, null: true
 
      def me

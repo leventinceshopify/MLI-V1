@@ -8,7 +8,6 @@ createItem (sku: $sku, name: $name, description: $description, cost: $cost, quan
 }
 
 
-
 mutation deleteItem ($id: ID!){
 
   deleteItem(id: $id)

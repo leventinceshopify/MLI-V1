@@ -5,7 +5,6 @@ import {ShowInventoryQuery, ShowInventoryPerLocationQuery1, ShowInventoryPerLoca
 // import VariantsList from '../VariantsList';
 import QueryPanel from '../QueryPanel';
 
-
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
@@ -17,8 +16,6 @@ class ShowInventoryItems extends React.Component {
   showWhatButtonDoes = () => {
 
   }
-  // <img src = {require(`${imgpath}`)} width="100" height="80"/>
-
 
   showState = (state) => {
 
@@ -256,9 +253,6 @@ class ShowInventoryItems extends React.Component {
       backgroundColor: '#e6f4fa'
     }
 
-// variables = {{id: 1}}
-
-
     return (<div>
 
       <QueryPanel />
@@ -309,16 +303,7 @@ class ShowInventoryItems extends React.Component {
               }
             </Query></div></div>
 
-
           );
-
-
-
-
-
-
-
-
 
         }
       }

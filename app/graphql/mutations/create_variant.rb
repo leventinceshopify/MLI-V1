@@ -8,7 +8,7 @@ module Mutations
     argument :size, String, required: true
     argument :picture, String, required: false
 
-    # return type from the mutation
+
     type Types::VariantType
 
     def resolve(name: nil, product_id: nil, description: nil,

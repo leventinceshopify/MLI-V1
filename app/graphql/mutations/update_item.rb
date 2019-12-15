@@ -12,17 +12,10 @@ module Mutations
     argument :picture, String, required: false
 
 
-    # return type from the mutation
-    # type Types::ProductType
     field :item, Types::ProductType, null: true
     field :errors, [String], null: false
 
     def resolve(id:, sku:, name: nil,  description: nil, cost:, quantity_threshold:, size:, manufacturer:, picture: nil)
-      # if context[:current_admin].nil?
-      #   raise GraphQL::ExecutionError,
-      #         "You need to authenticate to perform this action"
-      # end
-
       item = Item.find(id)
 
       if item.update(sku: sku, name: name, description: description, cost: cost, quantity_threshold: quantity_threshold,

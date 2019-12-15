@@ -27,13 +27,8 @@ function ItemsOfVariant ({ id }) {
         ))}
       </select>
 
-
-
     );
 
 }
-
-
-
 
 export default  ItemsOfVariant;

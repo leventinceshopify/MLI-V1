@@ -4,8 +4,6 @@ module Mutations
     argument :name, String, required: true
     argument :description, String, required: false
 
-
-    # return type from the mutation
     type Types::InventoryItemStateType
 
     def resolve(name: nil, condition: nil, description: nil)

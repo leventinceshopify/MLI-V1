@@ -1,6 +1,4 @@
 
-
-
 query ItemsOfVariant ($id : Integer!){
   variant (id: $id) {
     id

@@ -6,16 +6,11 @@ module Mutations
     argument :description, String, required: false
     argument :picture, String, required: false
 
-    # return type from the mutation
-    # type Types::ProductType
+
     field :product, Types::ProductType, null: true
     field :errors, [String], null: false
 
     def resolve(id:, name: nil,  description: nil, picture: nil)
-      # if context[:current_admin].nil?
-      #   raise GraphQL::ExecutionError,
-      #         "You need to authenticate to perform this action"
-      # end
 
       product = Product.find(id)
 

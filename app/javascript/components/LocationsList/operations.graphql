@@ -1,6 +1,4 @@
 
-
-
 query locations {
 allLocations {
     id

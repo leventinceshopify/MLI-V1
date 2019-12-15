@@ -85,20 +85,12 @@ function QueryPanel() {
       console.log(selectedCount);
     }
 
-
-    // function sellVariant({ target }) {
-    //
-    //   setSelectedVariant(target.value);
-    //   console.log(selectedVariant);
-    // }
     return (
 
 
         <div >
       <form style={{ width: "100%"}}>
           <VariantsList onVariantSelected={onVariantSelected} />{selectedVariant && <ItemsOfVariant id={selectedVariant}  />}  <LocationsList onLocationSelected={onLocationSelected} /> <InventoryItemConditionsList onInventoryItemConditionSelected={onInventoryItemConditionSelected} /> <br/>
-
-
 
              <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
                e.preventDefault();
@@ -168,28 +160,13 @@ function QueryPanel() {
                 window.location.reload();
               }}   type="submit">Transfer Item</button>
 
-
           </form>
-
-
-
-
-
-
         </div>
-
-
     );
-
 }
 
 const showWhatButtonDoes = () => {
-
-console.log("ME PRESSED")
-
+  console.log("ME PRESSED")
 }
 
-
-
 export default QueryPanel;
-// export default {VariantsList, ItemsofVariant};

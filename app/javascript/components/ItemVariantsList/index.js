@@ -27,32 +27,8 @@ function ItemVariantsList  ({ onItemVariantSelected }) {
         ))}
       </select>
 
-
-
-
     );
 }
 
-// function ItemsofVariant ({ name }) {
-//   const { loading, error, data } = useQuery(ItemsOfVariant, {
-//     variables: { name },
-//   });
-//
-//     if (loading) return null;
-//     if (error) return `Error! ${error}`;
-//
-//     return (
-//       <ul>
-//         {data.variant.items.map(item => (
-//           <li key={item.id}>{item.name}</li>
-//         ))}
-//       </ul>
-//
-//     );
-//
-// }
-//
-
 
 export default ItemVariantsList;
-// export default {VariantsList, ItemsofVariant};

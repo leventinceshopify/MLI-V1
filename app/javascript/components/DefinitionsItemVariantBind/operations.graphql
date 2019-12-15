@@ -11,8 +11,6 @@ bindItemToVariant (itemId: $itemId, variantId: $variantId) {
     }
 }
 
-
-
 mutation deleteItemVariant ($id: ID!){
 
   deleteItemVariant(id: $id)

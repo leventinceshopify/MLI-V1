@@ -1,6 +1,4 @@
 
-
-
 query inventoryItemConditions {
 allInventoryItemConditions {
     id

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+ 
 module Mutations
   class SellVariantFromLocation < BaseMutation
     # arguments passed to the `resolved` method

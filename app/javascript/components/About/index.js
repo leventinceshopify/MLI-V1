@@ -1,21 +1,11 @@
 import React from "react";
 
-
-// import './styles.module.css'
-
 function About  () {
 
-
-    return (
-      <div>
-
-        <h1>About Page</h1>
-
-      </div>
-
-
-    );
+  return (
+    <div>
+      <h1>Multi Location Inventory Management App by Levent Ince</h1>
+    </div>    
+  );
 }
-
-
 export default About;

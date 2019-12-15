@@ -4,9 +4,9 @@ module Mutations
   class BaseMutation < GraphQL::Schema::Mutation
 
     #*********************************
-    # get_item_in_this_state
-    # CHECK IF AN INVENTORY_ITEM EXIST IN THIS STATE.
-    # IF EXISTS, RETURN THE INVENTORY ITEM, ELSE RETURNS NIL
+    # check_availability_of_all_items
+    # CHECK IF ALL ITEMS THAT PART OF THE SPECIFIC VARIANT  EXIST IN THIS STATE WITH THE SPECIFIED CONDITION
+    # IF EXISTS, RETURNS TRUE, ELSE RETURN FALSE
     #*********************************
 
     def check_availability_of_all_items(variant, location_id, condition_name, state_names)
@@ -24,11 +24,16 @@ module Mutations
         return all_items_exist
       end
 
-      def get_item_from_sellable_state(inventory_item_params)
+      #*********************************
+      # get_item_from_sellable_state
+      # GETS THE INVENTORY ITEM FROM MUTUALLY EXCLUSIVE AVAILABLE, CRITICAL_LEVEL AND OUT_OF_STOCK STATES
+      # CHECKS FIRST THE AVAILABLE STATE, IF NOT FOUND CHECK OTHER STATES IN ORDER
+      # RETURNS THE INVENTORY ITEM FOUND IN ANY OF THESE STATES
+      #*********************************
 
+      def get_item_from_sellable_state(inventory_item_params)
         initial_condition = inventory_item_params[:inventory_item_condition_id]
         inventory_item_in_sellable_state = get_item_in_this_state(inventory_item_params, "Available")
-
         if inventory_item_in_sellable_state.nil?
           inventory_item_in_sellable_state = get_item_in_this_state(inventory_item_params, "Critical_Level")
         end
@@ -37,22 +42,18 @@ module Mutations
           inventory_item_in_sellable_state = get_item_in_this_state(inventory_item_params, "Out_of_Stock")
           inventory_item_params[:inventory_item_condition_id] = initial_condition
         end
-
         return inventory_item_in_sellable_state
-
       end
 
       #*********************************
       # get_item_in_this_state
       # RETURNS THE INVENTORY ITEM IN THE SPECIFIED state
-      # IF THERE ISN'T SUCH A STATE OR THERE ISN'T AN Inventory
+      # IF THERE ISN'T SUCH A STATE OR THERE ISN'T AN INVENTORY
       # ITEM IN THAT STATE, RETURNS NIL
       #*********************************
 
       def get_item_in_this_state(inventory_item_params, state = nil)
-
         return nil if (state.nil? || InventoryItemState.find_by(name: state).nil?) #No need to check if the  state is nil.
-
         item_state_id = InventoryItemState.find_by(name: state).id
 
         in_it = InventoryItem.find_by(item_id: inventory_item_params[:item_id],
@@ -61,7 +62,6 @@ module Mutations
           inventory_item_condition_id: inventory_item_params[:inventory_item_condition_id])
 
           return nil if in_it.nil?
-
           return in_it
         end
 
@@ -69,7 +69,7 @@ module Mutations
         # update_intial_state
         # IF THE INVENTORY ITEM IN THE initial STATE DOES NOT EXIST,
         # DOES NOTHING.
-        # IF THE INVENTORY ITEM QUNATITY DROPS TO ZERO AFTER REMOVAL FROM THE
+        # IF THE INVENTORY ITEM QUANTITY DROPS TO ZERO AFTER REMOVAL FROM THE
         # INITAL STATE, IT DECIDES TO DESTROY IT BASED ON allow_destroy_inital_state
         # FLAG. OTHERWISE JUST MODIFY THE QUANTIY ATTRIBUTE OF INVENTORY ITEM IN THAT
         # STATE
@@ -81,17 +81,13 @@ module Mutations
           return_params = Hash.new(0)
           return_params[:errors] = ""
           return_params[:dropped_count] = dropped_quantity
-
           if to_be_modified_inventory_item.nil?
             return_params[:inventory_item] = nil
             return_params[:dropped_count] = 0
             return return_params
           end
-
           new_quantity = (to_be_modified_inventory_item.quantity - dropped_quantity) >=0 ? (to_be_modified_inventory_item.quantity - dropped_quantity) : 0
-
           return_params[:dropped_count] = to_be_modified_inventory_item.quantity if new_quantity==0
-
           begin
             if new_quantity==0 && allow_destroy_inital_state
               if to_be_modified_inventory_item.destroy
@@ -147,21 +143,23 @@ module Mutations
           return return_params
         end
 
+        #*********************************
+        # set_sellable_item_state
+        # SETS THE INVENTORY ITEM IN MUTUALLY EXCLUSIVE AVAILABLE, CRITICAL_LEVEL AND OUT_OF_STOCK STATES
+        # BASED ON ITS QUANTITY
+        #*********************************
+
         def set_sellable_item_state(state_result)
-        if !state_result[:inventory_item].nil?
+          if !state_result[:inventory_item].nil?
             if (state_result[:inventory_item].quantity > state_result[:inventory_item].item.quantity_threshold)
               state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "Available"))
-
-
             elsif (state_result[:inventory_item].quantity == 0)
               state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "Out_of_Stock"), inventory_item_condition: InventoryItemCondition.find_by(name: "Not_Sellable"))
             else
               state_result[:inventory_item].update(id: state_result[:inventory_item].id, inventory_item_state: InventoryItemState.find_by(name: "CriticaL_Level"))
-
             end
           end
         end
-
 
 
         private
@@ -173,10 +171,8 @@ module Mutations
 
         #*********************************
 
-
         def create_inventory_item(to_be_created_inventory_item_params, state)
           return_params = Hash.new(0)
-
           begin
             if in_it = InventoryItem.create!(
               location: Location.find(to_be_created_inventory_item_params[:location_id]),
@@ -184,8 +180,6 @@ module Mutations
               inventory_item_state: InventoryItemState.find_by(name: state),
               inventory_item_condition: InventoryItemCondition.find(to_be_created_inventory_item_params[:inventory_item_condition_id]),
               quantity: to_be_created_inventory_item_params[:count])
-
-
             else
               return_params[:errors] = inventory_item.errors.full_messages
               in_it = nil
@@ -193,13 +187,9 @@ module Mutations
           rescue
             puts "there is a problem in creating inventory item in Committed state for Item: #{item.name} "
           end
-
           return_params[:inventory_item] = in_it
           return return_params
-
-
         end
-
         null false
       end
     end

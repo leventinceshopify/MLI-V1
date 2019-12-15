@@ -91,7 +91,6 @@ query ShowInventoryPerLocationQuery2{
 }
 
 
-
 query variants {
 allVariants {
     id

@@ -7,7 +7,6 @@ module Mutations
     argument :properties, GraphQL::Types::JSON, required: false
 
 
-    # return type from the mutation
     type Types::LocationType
 
     def resolve(name: nil, address: nil, location_type_id: nil,

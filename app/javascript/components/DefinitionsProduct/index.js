@@ -8,15 +8,8 @@ import ProductsList from '../ProductsList';
 
 import {Button} from '@shopify/polaris';
 
-
-
 import cs from './styles';
 import '@shopify/polaris/styles.css';
-
-
-
-
-
 
 function DefinitionsProduct() {
 
@@ -28,8 +21,6 @@ function DefinitionsProduct() {
   const [deleteProd] = useMutation(deleteProduct);
   const [updateProd] = useMutation(updateProduct);
 
-
-// const { loading, error, data } = useQuery(showProductInfo, { variables: { id: selectedProduct }});
 
   function onProductNameEntered({ target }) {
 
@@ -102,73 +93,9 @@ function DefinitionsProduct() {
     </form>
     </div>
 
-
-
 );
 
 }
 
-function UpdateProduct ({ id }) {
-
-
-
-  // const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState(null);
-   const [productName, setProductName] = useState(null);
-  // const [createProd] = useMutation(createProduct);
-  // const [deleteProd] = useMutation(deleteProduct);
-   const [updateProd] = useMutation(updateProduct);
-  //
-
-  // const { loading, error, data } = useQuery(showProductInfo, { variables: { id: selectedProduct }});
-
-  function onProductNameEntered({ target }) {
-
-    setProductName(target.value);
-    console.log(productName);
-  }
-  function onProductDescriptionEntered({ target }) {
-
-    setProductDescription(target.value);
-    console.log(productDescription);
-  }
-
-  const { loading, error, data } = useQuery(showProductInfo, { variables: { id }});
-
-    if (loading) return null;
-    if (error) return `Error! ${error}`;
-
-
-  // setProductName("hhh");
-
-  console.log (a)
-
-
-    return (
-<div>
-      Product Name: <br />
-    <input name="productName" type="text" cols="30"
-      onChange={onProductNameEntered}
-      value={data.product.name}></input> <br/>
-    Product Description:<br />
-  <textarea name="description" rows="5" cols="30"
-    onChange={onProductDescriptionEntered}
-     ></textarea><br/>
-
-    <button className="Polaris-Button Polaris-Button--primary" onClick={e => {
-        e.preventDefault();
-        updateProd({ variables: { id: selectedProduct, name: productName,  description: productDescription, picture: ""} });
-        window.location.reload();
-      }}   type="submit">Update Product</button> }
-
-</div>
-    );
-
-}
-
-
-
 
 export default DefinitionsProduct;
-// export default {VariantsList, ItemsofVariant};

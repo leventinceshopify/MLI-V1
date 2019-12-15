@@ -10,7 +10,7 @@ module Mutations
     argument :manufacturer, String, required: true
     argument :picture, String, required: false
 
-    # return type from the mutation
+
     type Types::ItemType
 
     def resolve(sku: nil, name: nil, description: nil,

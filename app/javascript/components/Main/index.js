@@ -10,7 +10,6 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function Main  () {
 
-
   return (
     <Router>
       <div>
@@ -27,8 +26,4 @@ function Main  () {
   );
 }
 
-
-
-
 export default Main;
-// export default {VariantsList, ItemsofVariant};

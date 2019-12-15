@@ -6,8 +6,6 @@ import {inventoryItemConditions} from "./operations.graphql";
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
-// import './styles.module.css'
-
 function InventoryItemConditionsList  ({ onInventoryItemConditionSelected }) {
   const { loading, error, data } = useQuery(inventoryItemConditions);
 
@@ -29,26 +27,4 @@ function InventoryItemConditionsList  ({ onInventoryItemConditionSelected }) {
     );
 }
 
-// function ItemsofVariant ({ name }) {
-//   const { loading, error, data } = useQuery(ItemsOfVariant, {
-//     variables: { name },
-//   });
-//
-//     if (loading) return null;
-//     if (error) return `Error! ${error}`;
-//
-//     return (
-//       <ul>
-//         {data.variant.items.map(item => (
-//           <li key={item.id}>{item.name}</li>
-//         ))}
-//       </ul>
-//
-//     );
-//
-// }
-//
-
-
 export default InventoryItemConditionsList;
-// export default {VariantsList, ItemsofVariant};

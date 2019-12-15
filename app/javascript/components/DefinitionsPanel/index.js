@@ -12,12 +12,8 @@ import DefinitionsItemVariantBind from '../DefinitionsItemVariantBind'
 import DefinitionsInventoryItemConditionAndState from '../DefinitionsInventoryItemConditionAndState'
 import {Button} from '@shopify/polaris';
 
-
-
 import cs from './styles';
 import '@shopify/polaris/styles.css';
-
-
 
 const columnClass = {
   float: 'left',
@@ -26,23 +22,14 @@ const columnClass = {
   height: '300px'
 }
 
-
-
-
-
-
 function DefinitionsPanel() {
 
-
   return (
-
     <div >
-
-
       <div style={columnClass}>
         <DefinitionsProduct />
     </div>
-    
+
     <div style={columnClass}>
       <DefinitionsVariant />
     </div>
@@ -57,19 +44,8 @@ function DefinitionsPanel() {
     <div style={columnClass}>
       <DefinitionsInventoryItemConditionAndState />
     </div>
-
-
-
 </div>
-
-
 );
-
 }
 
-
-
-
-
 export default DefinitionsPanel;
-// export default {VariantsList, ItemsofVariant};

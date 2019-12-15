@@ -6,8 +6,6 @@ import {products} from "./operations.graphql";
 import cs from './styles';
 import '@shopify/polaris/styles.css';
 
-// import './styles.module.css'
-
 function ProductsList  ({ onProductSelected }) {
   const { loading, error, data } = useQuery(products);
 
@@ -29,6 +27,4 @@ function ProductsList  ({ onProductSelected }) {
     );
 }
 
-
 export default ProductsList;
-// export default {VariantsList, ItemsofVariant};

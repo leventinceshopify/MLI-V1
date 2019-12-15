@@ -2,7 +2,6 @@
 
 one:
   description: MyText
-  cost: 1.5
   price: 1.5
   size: MyString
   picture: MyString
@@ -10,7 +9,6 @@ one:
 
 two:
   description: MyText
-  cost: 1.5
   price: 1.5
   size: MyString
   picture: MyString

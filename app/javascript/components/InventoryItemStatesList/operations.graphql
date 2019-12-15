@@ -1,6 +1,4 @@
 
-
-
 query inventoryItemStates {
 allInventoryItemStates {
     id

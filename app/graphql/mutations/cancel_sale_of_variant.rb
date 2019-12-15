@@ -18,29 +18,29 @@ module Mutations
 
 
       all_items_exist_at_location = check_availability_of_all_items(variant, location_id, "Not_Sellable", ["Committed"])
-ActiveRecord::Base.transaction do
-      all_items_exist_at_location && variant.items.each do |item|
+      ActiveRecord::Base.transaction do
+        all_items_exist_at_location && variant.items.each do |item|
 
-        inventory_item_params = {item_id: item.id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name: "Not_Sellable").id, count: 1 }
-        inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, "Committed")
-        initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
+          inventory_item_params = {item_id: item.id, location_id: location_id, inventory_item_condition_id: InventoryItemCondition.find_by(name: "Not_Sellable").id, count: 1 }
+          inventory_item_in_inital_state = get_item_in_this_state(inventory_item_params, "Committed")
+          initial_state_result = update_initial_state(inventory_item_in_inital_state, inventory_item_params[:count], allow_destroy_inital_state)
 
-        returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
-        returned_errors.push(initial_state_result[:errors])
-        inventory_item_params[:count] = initial_state_result[:dropped_count]
+          returned_inventory_items.push(initial_state_result[:inventory_item]) if !initial_state_result[:inventory_item].nil?
+          returned_errors.push(initial_state_result[:errors])
+          inventory_item_params[:count] = initial_state_result[:dropped_count]
 
-        #-----------BORDER BETWEEN INITIAL AND FINAL STATE-------------
+          #-----------BORDER BETWEEN INITIAL AND FINAL STATE-------------
 
-        inventory_item_params[:inventory_item_condition_id] =   InventoryItemCondition.find_by(name: inventory_item_condition_name ).id
-        inventory_item_in_final_state = get_item_from_sellable_state(inventory_item_params)
-        final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Critical_Level")
-        set_sellable_item_state(final_state_result)
+          inventory_item_params[:inventory_item_condition_id] =   InventoryItemCondition.find_by(name: inventory_item_condition_name ).id
+          inventory_item_in_final_state = get_item_from_sellable_state(inventory_item_params)
+          final_state_result = update_final_state(inventory_item_in_final_state, inventory_item_params, "Critical_Level")
+          set_sellable_item_state(final_state_result)
 
-        returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
-        returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
+          returned_inventory_items.push(final_state_result[:inventory_item]) if !final_state_result.nil?
+          returned_errors.push(final_state_result[:errors]) if !final_state_result.nil?
+        end
+
       end
-
-    end
       {errors: returned_errors}  if returned_errors.length >0
       {inventory_items: returned_inventory_items}
     end

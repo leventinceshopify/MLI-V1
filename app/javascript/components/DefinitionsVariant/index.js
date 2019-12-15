@@ -9,13 +9,8 @@ import VariantsList from '../VariantsList';
 
 import {Button} from '@shopify/polaris';
 
-
-
 import cs from './styles';
 import '@shopify/polaris/styles.css';
-
-
-
 
 function DefinitionsVariant() {
 
@@ -25,14 +20,9 @@ function DefinitionsVariant() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
 
-
 const [createVar] = useMutation(createVariantOfProduct);
 const [deleteVar] = useMutation(deleteVariant);
 const [updateVar] = useMutation(updateVariant);
-// const [updateVar] = useMutation(updateVariant);
-
-
-// const { loading, error, data } = useQuery(showProductInfo, { variables: { id: selectedProduct }});
 
   function onVariantNameEntered({ target }) {
 
@@ -85,7 +75,7 @@ const [updateVar] = useMutation(updateVariant);
           createVar({ variables: { name: variantName, productId:  parseInt(selectedProduct), description: variantDescription, price: parseFloat(variantPrice), size: "10", picture: " "} });
           window.location.reload();
         }}   type="submit" style={{width: '200px'}}>Create Variant</button>
-      
+
       </form>
       <br/>
       <br/>
@@ -97,8 +87,6 @@ const [updateVar] = useMutation(updateVariant);
               deleteVar({ variables: { id: selectedVariant} });
               window.location.reload();
             }}   type="submit" style={{width: '200px'}}>Delete Variant</button>
-
-
 
     </form>
     <br/>
@@ -125,17 +113,13 @@ const [updateVar] = useMutation(updateVariant);
         }}   type="submit" style={{width: '200px'}}>Update Variant</button>
 
 
-
 </form>
 
     </div>
 
-
-
 );
 
 }
-
 
 export default DefinitionsVariant;
 // export default {VariantsList, ItemsofVariant};

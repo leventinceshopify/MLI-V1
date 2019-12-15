@@ -16,11 +16,7 @@ module Mutations
 
     def resolve(id:, name: nil, product_id: nil, description: nil,
       price: nil, size: nil,  picture: nil)
-      # if context[:current_admin].nil?
-      #   raise GraphQL::ExecutionError,
-      #         "You need to authenticate to perform this action"
-      # end
-
+    
       variant = Variant.find(id)
 
       if variant.update(name: name, product_id: product_id, description: description, price: price, size: size, picture: picture)
